@@ -309,6 +309,302 @@
       .header { grid-template-columns: 1fr; text-align: left; }
       .grid { gap: 12px; }
     }
+
+    /* ── Clinical Scoring Tools ─────────────────────────────── */
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) { .calc-row { grid-template-columns: 1fr; } }
+
+    .criterion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.87rem;
+    }
+    .criterion:last-of-type { border-bottom: none; }
+    .criterion-label { flex: 1; color: #c8d4e8; line-height: 1.4; }
+    .criterion-pts { color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
+
+    .toggle-yes {
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(9,17,34,0.82);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 120ms ease;
+      white-space: nowrap;
+    }
+    .toggle-yes:hover { border-color: rgba(56,214,143,0.5); color: var(--success); }
+    .toggle-yes.active {
+      background: rgba(56,214,143,0.18);
+      border-color: var(--success);
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .heart-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: rgba(66,192,255,0.14);
+      border: 1px solid rgba(66,192,255,0.32);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    .heart-options {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .heart-opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(9,17,34,0.82);
+      cursor: pointer;
+      font-size: 0.84rem;
+      color: var(--muted);
+      transition: all 120ms ease;
+    }
+    .heart-opt:hover { border-color: rgba(66,192,255,0.45); color: var(--text); }
+    .heart-opt.selected {
+      background: rgba(40,178,251,0.16);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .heart-opt .opt-pts {
+      margin-left: auto;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--accent2);
+    }
+
+    .score-result {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(120,146,176,0.25);
+      background: rgba(4,11,22,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .score-result .total-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent2);
+      line-height: 1;
+    }
+    .score-result .result-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+    .score-bar {
+      margin-top: 8px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(120,146,176,0.2);
+      overflow: hidden;
+      width: 130px;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 300ms ease, background 300ms ease;
+    }
+    .interp-action {
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-top: 4px;
+      max-width: 200px;
+    }
+    .interp-pct {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .tools-header {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .tools-header strong { font-size: 1rem; color: var(--accent); }
+
+    /* ── Schema-Driven Tier Sections ────────────────────────── */
+    .tier-section { margin-bottom: 12px; }
+
+    .tier-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 8px;
+    }
+    .tier-header.tier-red {
+      background: rgba(253,107,119,0.1);
+      border: 1px solid rgba(253,107,119,0.32);
+    }
+    .tier-header.tier-yellow {
+      background: rgba(255,189,62,0.1);
+      border: 1px solid rgba(255,189,62,0.32);
+    }
+    .tier-header.tier-green {
+      background: rgba(56,214,143,0.08);
+      border: 1px solid rgba(56,214,143,0.28);
+    }
+    .tier-header:hover { filter: brightness(1.1); }
+
+    .tier-label { font-weight: 700; font-size: 0.95rem; }
+    .tier-red .tier-label  { color: #ffccd3; }
+    .tier-yellow .tier-label { color: #ffddab; }
+    .tier-green .tier-label  { color: #c5ffe0; }
+
+    .group-header {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      padding: 8px 4px 4px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+    .group-header:first-child { margin-top: 0; }
+
+    .dx-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 7px;
+      background: rgba(8,15,32,0.92);
+      transition: border-color 120ms ease;
+    }
+    .dx-card:hover { border-color: rgba(66,192,255,0.28); }
+    .dx-card.has-match { border-color: rgba(56,214,143,0.4); background: rgba(56,214,143,0.04); }
+    .dx-card.has-redflag { border-color: rgba(253,107,119,0.5); background: rgba(253,107,119,0.04); }
+
+    .dx-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .dx-card-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      line-height: 1.3;
+    }
+
+    .feature-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 6px 0;
+    }
+    .feature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+    .feature-chip.present {
+      background: rgba(56,214,143,0.15);
+      color: #9ef5c5;
+      border: 1px solid rgba(56,214,143,0.35);
+    }
+    .feature-chip.redflag {
+      background: rgba(253,107,119,0.15);
+      color: #ffccd3;
+      border: 1px solid rgba(253,107,119,0.4);
+    }
+
+    .dx-discriminator {
+      font-size: 0.77rem;
+      color: #8899b8;
+      margin: 4px 0 5px;
+      line-height: 1.45;
+    }
+
+    .dx-workup {
+      margin-top: 7px;
+      padding: 6px 10px;
+      background: rgba(66,192,255,0.06);
+      border-radius: 8px;
+      font-size: 0.77rem;
+      color: #a8d4ee;
+      border: 1px solid rgba(66,192,255,0.14);
+      line-height: 1.5;
+    }
+
+    /* ── Management Anchors Bar ─────────────────────────────── */
+    .mgmt-bar {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: rgba(4,11,22,0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(66,192,255,0.2);
+    }
+    .mgmt-bar-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+    .mgmt-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .mgmt-chip {
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .mgmt-chip.always {
+      background: rgba(66,192,255,0.14);
+      color: var(--accent);
+      border: 1px solid rgba(66,192,255,0.3);
+    }
+    .mgmt-chip.cond {
+      background: rgba(120,146,176,0.08);
+      color: var(--muted);
+      border: 1px solid rgba(120,146,176,0.2);
+    }
+
+    /* ── Results panel scroll ───────────────────────────────── */
+    #cards { max-height: 80vh; overflow-y: auto; padding-right: 4px; }
+    #cards::-webkit-scrollbar { width: 4px; }
+    #cards::-webkit-scrollbar-track { background: transparent; }
+    #cards::-webkit-scrollbar-thumb { background: rgba(66,192,255,0.2); border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -316,21 +612,21 @@
   <div class="header">
     <div>
       <h1>Chief Complaint Differential Explorer</h1>
-      <p>Prototype app that turns static medical complaint visuals into a tree + filterable table + ranked match engine. Seeded for Chest Pain and Abdominal Pain.</p>
+      <p>Schema-driven differential reasoning for Chest Pain (4+2+2 framework) and Abdominal Pain. Features update instantly as you build the clinical picture.</p>
     </div>
-    <div class="banner">Prototype only. Educational / product design demo, not clinical guidance.</div>
+    <div class="banner">Prototype only — not clinical guidance</div>
   </div>
 
   <div class="grid">
     <div class="panel">
       <h2>Chief Complaints</h2>
       <div id="complaints"></div>
-      <div class="footer">You can start with 2 complaints and expand later.</div>
+      <div class="footer">Expand to more complaints in future iterations.</div>
     </div>
 
     <div class="panel">
       <h2>Guided Intake</h2>
-      <div class="subtle">Select characteristics. Results update instantly.</div>
+      <div class="subtle">Build the clinical picture — results update in real time.</div>
       <div class="qblock">
         <div class="qtitle">Patient unstable?</div>
         <div class="options">
@@ -345,144 +641,606 @@
       <h2>Results</h2>
       <div id="tree"></div>
       <div id="cards"></div>
-      <h2 style="margin-top:18px;">Filterable Table</h2>
       <div id="table"></div>
+    </div>
+  </div>
+
+  <!-- Clinical Scoring Tools — shown only for Chest Pain -->
+  <div id="clinical-scores" style="display:none; margin-top:16px;">
+    <div class="tools-header">
+      <strong>Clinical Scoring Tools</strong>
+      <span class="subtle">— Active for Chest Pain</span>
+    </div>
+    <div class="calc-row">
+      <div class="panel" id="wells-panel"></div>
+      <div class="panel" id="heart-panel"></div>
     </div>
   </div>
 </div>
 
 <script>
+// ── Wells Score criteria ────────────────────────────────────
+const WELLS_CRITERIA = [
+  { id: 'dvt_signs',      label: 'Clinical signs/symptoms of DVT (leg swelling, tenderness)',            points: 3   },
+  { id: 'pe_dx',          label: 'PE is #1 diagnosis OR equally likely',                                 points: 3   },
+  { id: 'hr_100',         label: 'Heart rate > 100 bpm',                                                 points: 1.5 },
+  { id: 'immobilization', label: 'Immobilization ≥ 3 days OR surgery in previous 4 weeks',               points: 1.5 },
+  { id: 'prior_dvt_pe',   label: 'Previous DVT / PE',                                                    points: 1.5 },
+  { id: 'hemoptysis',     label: 'Hemoptysis',                                                           points: 1   },
+  { id: 'malignancy',     label: 'Malignancy (on treatment or palliation within 6 months)',               points: 1   }
+];
+
+function calcWells() {
+  return WELLS_CRITERIA.reduce((sum, c) => sum + (state.wellsAnswers[c.id] ? c.points : 0), 0);
+}
+
+function wellsRisk(score) {
+  if (score > 6)  return { label: 'High',     tier: 'high',   pct: '~41–67% PE probability',  action: 'CTPA or empiric anticoagulation' };
+  if (score >= 2) return { label: 'Moderate', tier: 'medium', pct: '~17–29% PE probability',  action: 'D-dimer or CTPA depending on clinical context' };
+  return              { label: 'Low',      tier: 'low',    pct: '~1–8% PE probability',    action: 'D-dimer first; if negative, PE effectively excluded' };
+}
+
+// ── HEART Score criteria ────────────────────────────────────
+const HEART_CRITERIA = [
+  { id: 'history',  letter: 'H', label: 'History',      options: [
+      { value: 0, label: 'Slightly suspicious' },
+      { value: 1, label: 'Moderately suspicious' },
+      { value: 2, label: 'Highly suspicious' }
+  ]},
+  { id: 'ecg',      letter: 'E', label: 'ECG',          options: [
+      { value: 0, label: 'Normal' },
+      { value: 1, label: 'Non-specific repolarization disturbance' },
+      { value: 2, label: 'Significant ST deviation' }
+  ]},
+  { id: 'age',      letter: 'A', label: 'Age',          options: [
+      { value: 0, label: '< 45 years' },
+      { value: 1, label: '45 – 64 years' },
+      { value: 2, label: '≥ 65 years' }
+  ]},
+  { id: 'risk',     letter: 'R', label: 'Risk Factors', options: [
+      { value: 0, label: 'No known risk factors' },
+      { value: 1, label: '1–2 risk factors' },
+      { value: 2, label: '≥ 3 risk factors or known atherosclerotic disease' }
+  ]},
+  { id: 'troponin', letter: 'T', label: 'Troponin',     options: [
+      { value: 0, label: '≤ Normal limit' },
+      { value: 1, label: '1–3× normal limit' },
+      { value: 2, label: '> 3× normal limit' }
+  ]}
+];
+
+function calcHEART() {
+  return HEART_CRITERIA.reduce((sum, c) => {
+    const v = state.heartAnswers[c.id];
+    return sum + (v != null ? v : 0);
+  }, 0);
+}
+
+function heartRisk(score) {
+  if (score >= 7) return { label: 'High',     tier: 'high',   pct: '~65% MACE risk',  action: 'Early invasive strategy; admit' };
+  if (score >= 4) return { label: 'Moderate', tier: 'medium', pct: '~12% MACE risk',  action: 'Observation + serial troponins' };
+  return              { label: 'Low',      tier: 'low',    pct: '~1.7% MACE risk', action: 'Consider early discharge' };
+}
+
+function toggleWells(id) {
+  state.wellsAnswers[id] = !state.wellsAnswers[id];
+  renderScoringTools();
+  renderResults();
+  renderTree();
+}
+
+function setHEART(id, value) {
+  state.heartAnswers[id] = (state.heartAnswers[id] === value) ? null : value;
+  renderScoringTools();
+  renderResults();
+  renderTree();
+}
+
+// ── Score badge helpers ─────────────────────────────────────
+function getWellsBadge() {
+  const hasAny = Object.values(state.wellsAnswers).some(Boolean);
+  if (!hasAny || state.selectedComplaint !== 'chest_pain') return '';
+  const ws = calcWells();
+  const wr = wellsRisk(ws);
+  return `<span class="badge ${wr.tier}" style="margin-left:5px;font-size:0.68rem;vertical-align:middle;">Wells: ${wr.label} (${ws}pts)</span>`;
+}
+
+function getHeartBadge() {
+  const hasAny = Object.values(state.heartAnswers).some(v => v != null);
+  if (!hasAny || state.selectedComplaint !== 'chest_pain') return '';
+  const hs = calcHEART();
+  const hr = heartRisk(hs);
+  return `<span class="badge ${hr.tier}" style="margin-left:5px;font-size:0.68rem;vertical-align:middle;">HEART: ${hr.label} (${hs}pts)</span>`;
+}
+
+function annotateCondition(name) {
+  if (name === 'Pulmonary Embolism') return name + getWellsBadge();
+  if (['STEMI', 'Unstable Angina / NSTEMI', 'Myocardial Infarction'].includes(name) || name.includes('NST ACS')) return name + getHeartBadge();
+  return name;
+}
+
+function renderScoringTools() {
+  const container = document.getElementById('clinical-scores');
+  if (state.selectedComplaint !== 'chest_pain') { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+
+  // ── Wells ──────────────────────────────────────────────
+  const ws = calcWells();
+  const wr = wellsRisk(ws);
+  const wPct = Math.min(100, (ws / 12.5) * 100);
+  const wColor = wr.tier === 'high' ? 'var(--danger)' : wr.tier === 'medium' ? 'var(--warn)' : 'var(--success)';
+
+  document.getElementById('wells-panel').innerHTML = `
+    <h2>Wells Score <span style="color:var(--muted);font-size:0.8rem;font-weight:400;">Pulmonary Embolism</span></h2>
+    <div class="subtle" style="margin-bottom:10px;">Check all criteria present in this patient.</div>
+    ${WELLS_CRITERIA.map(c => `
+      <div class="criterion">
+        <span class="criterion-label">${c.label}</span>
+        <span class="criterion-pts">+${c.points}</span>
+        <button class="toggle-yes ${state.wellsAnswers[c.id] ? 'active' : ''}" onclick="toggleWells('${c.id}')">
+          ${state.wellsAnswers[c.id] ? '✓ Yes' : 'Yes'}
+        </button>
+      </div>
+    `).join('')}
+    <div class="score-result">
+      <div>
+        <div class="result-label">Total Score</div>
+        <div class="total-num">${ws}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${wPct}%;background:${wColor};"></div></div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge ${wr.tier}">${wr.label} Risk</span>
+        <div class="interp-pct">${wr.pct}</div>
+        <div class="interp-action">${wr.action}</div>
+      </div>
+    </div>
+  `;
+
+  // ── HEART ──────────────────────────────────────────────
+  const hs = calcHEART();
+  const hr = heartRisk(hs);
+  const answeredCount = HEART_CRITERIA.filter(c => state.heartAnswers[c.id] != null).length;
+  const hPct = (hs / 10) * 100;
+  const hColor = hr.tier === 'high' ? 'var(--danger)' : hr.tier === 'medium' ? 'var(--warn)' : 'var(--success)';
+
+  document.getElementById('heart-panel').innerHTML = `
+    <h2>HEART Score <span style="color:var(--muted);font-size:0.8rem;font-weight:400;">Acute Coronary Syndrome</span></h2>
+    <div class="subtle" style="margin-bottom:2px;">Select one option per component. Click again to deselect.</div>
+    ${HEART_CRITERIA.map(c => `
+      <div class="qblock" style="padding-top:10px;margin-top:10px;">
+        <div class="qtitle" style="display:flex;align-items:center;gap:7px;">
+          <span class="heart-letter">${c.letter}</span>
+          ${c.label}
+          ${state.heartAnswers[c.id] != null
+            ? `<span style="margin-left:auto;font-size:0.76rem;color:var(--accent2);font-weight:700;">+${state.heartAnswers[c.id]}</span>`
+            : ''}
+        </div>
+        <div class="heart-options">
+          ${c.options.map(opt => `
+            <div class="heart-opt ${state.heartAnswers[c.id] === opt.value ? 'selected' : ''}"
+                 onclick="setHEART('${c.id}', ${opt.value})">
+              <span>${opt.label}</span>
+              <span class="opt-pts">${opt.value} pt${opt.value !== 1 ? 's' : ''}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('')}
+    <div class="score-result" style="margin-top:16px;">
+      <div>
+        <div class="result-label">
+          Total Score
+          ${answeredCount < 5 ? `<span style="color:var(--warn);margin-left:4px;">(${answeredCount}/5)</span>` : ''}
+        </div>
+        <div class="total-num">${hs}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${hPct}%;background:${hColor};"></div></div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge ${hr.tier}">${hr.label} Risk</span>
+        <div class="interp-pct">${hr.pct}</div>
+        <div class="interp-action">${hr.action}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ── DATA ────────────────────────────────────────────────────
 const DATA = {
   complaints: [
     {
       id: "chest_pain",
       label: "Chest Pain",
       questions: [
-        { field: "onset", label: "When did it start?", type: "single", options: ["sudden", "gradual", "intermittent"] },
-        { field: "pain_quality", label: "How would you describe it?", type: "multi", options: ["pressure", "crushing", "sharp", "burning", "tearing", "pleuritic", "aching"] },
-        { field: "location", label: "Where is it located?", type: "multi", options: ["substernal", "left chest", "right chest", "diffuse", "epigastric", "back"] },
-        { field: "radiation", label: "Does it radiate anywhere?", type: "multi", options: ["left arm", "right arm", "jaw", "back", "none"] },
-        { field: "associated_symptoms", label: "Associated symptoms", type: "multi", options: ["shortness of breath", "nausea", "vomiting", "diaphoresis", "cough", "fever", "syncope", "palpitations"] },
-        { field: "risk_factors", label: "Relevant risk factors", type: "multi", options: ["CAD", "smoking", "diabetes", "hypertension", "recent surgery", "immobility", "DVT history", "trauma", "viral illness"] },
-        { field: "red_flags", label: "Red flags", type: "multi", options: ["hypotension", "hypoxia", "tachycardia", "neurologic deficit", "unequal pulses"] }
-      ],
-      conditions: [
         {
-          label: "Myocardial Infarction",
-          category: "cardiac",
-          danger: "high",
-          match_features: {
-            onset: ["sudden"],
-            pain_quality: ["pressure", "crushing"],
-            location: ["substernal", "left chest"],
-            radiation: ["left arm", "jaw"],
-            associated_symptoms: ["shortness of breath", "nausea", "diaphoresis"],
-            risk_factors: ["CAD", "smoking", "diabetes", "hypertension"]
-          },
-          red_flag_boost: ["hypotension"],
-          exclude_if: [],
-          workup: ["ECG", "Troponin", "CXR"]
+          field: "onset",
+          label: "Onset",
+          type: "single",
+          options: ["sudden", "gradual", "intermittent"]
         },
         {
-          label: "Pulmonary Embolism",
-          category: "pulmonary",
+          field: "stability",
+          label: "Vital signs / Stability (select all that apply)",
+          type: "multi",
+          options: ["hypotension", "tachycardia (>100)", "hypoxia (O2<94%)", "tachypnea"]
+        },
+        {
+          field: "pain_quality",
+          label: "Pain character",
+          type: "multi",
+          options: ["pressure / crushing", "tearing / ripping", "pleuritic (worse with breath)", "burning", "sharp stabbing", "aching / dull"]
+        },
+        {
+          field: "location",
+          label: "Location",
+          type: "multi",
+          options: ["substernal", "left chest", "right chest", "back", "epigastric"]
+        },
+        {
+          field: "radiation",
+          label: "Radiation",
+          type: "multi",
+          options: ["left arm", "jaw", "back", "shoulders", "none"]
+        },
+        {
+          field: "associated_symptoms",
+          label: "Associated symptoms",
+          type: "multi",
+          options: ["diaphoresis", "dyspnea / SOB", "nausea / vomiting", "syncope", "fever", "cough", "dysphagia", "hemoptysis", "palpitations"]
+        },
+        {
+          field: "exam_findings",
+          label: "Exam findings (if known)",
+          type: "multi",
+          options: ["JVD", "unequal pulses", "neurologic deficit", "tracheal deviation", "muffled heart sounds", "subcutaneous emphysema", "absent breath sounds one side"]
+        },
+        {
+          field: "risk_factors",
+          label: "Risk factors / history",
+          type: "multi",
+          options: ["HTN", "CAD / prior MI", "smoking", "diabetes", "recent surgery / immobility", "DVT / PE history", "connective tissue disorder / Marfan", "recent forceful vomiting", "trauma", "viral illness"]
+        }
+      ],
+      conditions: [
+        // ── MUST NOT MISS: CARDIAC (4 + Takotsubo) ────────────
+        {
+          label: "STEMI",
+          tier: "must_not_miss",
+          group: "Cardiac",
+          category: "cardiac",
           danger: "high",
+          key_discriminators: "Crushing pressure, diaphoresis, ST elevation on ECG. Older patients with cardiac risk factors. Time is muscle — ECG within 10 min.",
           match_features: {
             onset: ["sudden"],
-            pain_quality: ["sharp", "pleuritic"],
-            location: ["left chest", "right chest", "diffuse"],
-            associated_symptoms: ["shortness of breath", "syncope"],
-            risk_factors: ["recent surgery", "immobility", "DVT history"]
+            pain_quality: ["pressure / crushing"],
+            location: ["substernal", "left chest"],
+            radiation: ["left arm", "jaw"],
+            associated_symptoms: ["diaphoresis", "dyspnea / SOB", "nausea / vomiting"],
+            risk_factors: ["CAD / prior MI", "HTN", "smoking", "diabetes"]
           },
-          red_flag_boost: ["hypoxia", "tachycardia"],
+          red_flag_boost: ["hypotension", "tachycardia (>100)"],
           exclude_if: [],
-          workup: ["Pulse ox", "D-dimer", "CTPA"]
+          workup: ["ECG within 10 min (look for STE)", "Aspirin 325 mg immediately", "Troponin", "Activate cath lab if STE confirmed"]
+        },
+        {
+          label: "Unstable Angina / NSTEMI",
+          tier: "must_not_miss",
+          group: "Cardiac",
+          category: "cardiac",
+          danger: "high",
+          key_discriminators: "Same ACS symptoms as STEMI but ECG lacks ST elevation. Serial troponin is the deciding test: positive = NSTEMI, negative = UA. Both require urgent management.",
+          match_features: {
+            onset: ["sudden", "gradual"],
+            pain_quality: ["pressure / crushing", "aching / dull"],
+            location: ["substernal", "left chest"],
+            radiation: ["left arm", "jaw"],
+            associated_symptoms: ["diaphoresis", "dyspnea / SOB", "nausea / vomiting"],
+            risk_factors: ["CAD / prior MI", "HTN", "smoking", "diabetes"]
+          },
+          red_flag_boost: ["hypotension", "tachycardia (>100)"],
+          exclude_if: [],
+          workup: ["ECG", "Serial troponin (0h + 3h)", "Aspirin", "Heparin if NSTEMI confirmed", "Admit + telemetry"]
         },
         {
           label: "Aortic Dissection",
+          tier: "must_not_miss",
+          group: "Cardiac",
           category: "vascular",
           danger: "high",
+          key_discriminators: "Tearing/ripping pain radiating to back; max severity at onset. Unequal BP between arms, pulse deficit, or neurologic deficit are red flags. HTN is #1 risk factor.",
           match_features: {
             onset: ["sudden"],
-            pain_quality: ["tearing"],
+            pain_quality: ["tearing / ripping"],
             location: ["substernal", "back"],
-            radiation: ["back"],
-            associated_symptoms: ["syncope"],
-            risk_factors: ["hypertension"]
+            radiation: ["back", "shoulders"],
+            risk_factors: ["HTN", "connective tissue disorder / Marfan"]
           },
-          red_flag_boost: ["neurologic deficit", "unequal pulses", "hypotension"],
+          red_flag_boost: ["unequal pulses", "neurologic deficit", "hypotension"],
           exclude_if: [],
-          workup: ["BP both arms", "CTA chest"]
+          workup: ["BP both arms (>20 mmHg difference)", "CXR (widened mediastinum)", "CTA chest — diagnostic", "Do NOT give thrombolytics"]
         },
         {
-          label: "Pericarditis",
+          label: "Cardiac Tamponade",
+          tier: "must_not_miss",
+          group: "Cardiac",
           category: "cardiac",
-          danger: "medium",
+          danger: "high",
+          key_discriminators: "Beck's triad: JVD + hypotension + muffled heart sounds. Pulsus paradoxus. Causes include malignancy, pericarditis, trauma, aortic dissection extending to pericardium.",
           match_features: {
             onset: ["gradual", "sudden"],
-            pain_quality: ["sharp"],
+            associated_symptoms: ["dyspnea / SOB", "syncope"],
+            exam_findings: ["JVD", "muffled heart sounds"]
+          },
+          red_flag_boost: ["hypotension", "JVD"],
+          exclude_if: [],
+          workup: ["POCUS (pericardial effusion + RA/RV collapse)", "ECG (low voltage, electrical alternans)", "Pericardiocentesis if hemodynamically unstable"]
+        },
+        {
+          label: "Takotsubo Cardiomyopathy",
+          tier: "must_not_miss",
+          group: "Cardiac",
+          category: "cardiac",
+          danger: "high",
+          key_discriminators: "Mimics STEMI/ACS clinically and on ECG. Often triggered by sudden emotional or physical stress. Predominantly post-menopausal women. Apical ballooning on echo/cath with no obstructive CAD.",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["pressure / crushing", "aching / dull"],
+            location: ["substernal"],
+            associated_symptoms: ["dyspnea / SOB", "diaphoresis"]
+          },
+          red_flag_boost: ["hypotension"],
+          exclude_if: [],
+          workup: ["ECG", "Troponin (mildly elevated)", "Echo (apical ballooning)", "Coronary angiography (no obstructive CAD)"]
+        },
+
+        // ── MUST NOT MISS: PULMONARY (2) ─────────────────────
+        {
+          label: "Pulmonary Embolism",
+          tier: "must_not_miss",
+          group: "Pulmonary",
+          category: "pulmonary",
+          danger: "high",
+          key_discriminators: "Pleuritic pain + dyspnea + tachycardia. Risk factors: immobility, recent surgery, prior DVT/PE, malignancy. Wells Score guides workup. Classic triad present in <20% of cases.",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["pleuritic (worse with breath)", "sharp stabbing"],
+            location: ["left chest", "right chest"],
+            associated_symptoms: ["dyspnea / SOB", "hemoptysis", "syncope"],
+            risk_factors: ["recent surgery / immobility", "DVT / PE history"]
+          },
+          red_flag_boost: ["hypoxia (O2<94%)", "tachycardia (>100)"],
+          exclude_if: [],
+          workup: ["Wells Score (see below)", "D-dimer if low/moderate risk", "CTPA if high risk or positive D-dimer", "Anticoagulation — initiate promptly"]
+        },
+        {
+          label: "Tension Pneumothorax",
+          tier: "must_not_miss",
+          group: "Pulmonary",
+          category: "pulmonary",
+          danger: "high",
+          key_discriminators: "Absent breath sounds unilaterally + tracheal deviation away from affected side + hypoxia + hypotension. Clinical diagnosis — act immediately, do NOT wait for CXR.",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["pleuritic (worse with breath)", "sharp stabbing"],
+            location: ["left chest", "right chest"],
+            associated_symptoms: ["dyspnea / SOB", "syncope"],
+            exam_findings: ["tracheal deviation", "absent breath sounds one side"],
+            risk_factors: ["trauma"]
+          },
+          red_flag_boost: ["hypotension", "hypoxia (O2<94%)", "tracheal deviation"],
+          exclude_if: [],
+          workup: ["Clinical diagnosis — act immediately", "Needle decompression (2nd ICS MCL) if unstable", "CXR if stable", "Chest tube"]
+        },
+
+        // ── MUST NOT MISS: ESOPHAGEAL (2) ────────────────────
+        {
+          label: "Esophageal Rupture (Boerhaave)",
+          tier: "must_not_miss",
+          group: "Esophageal",
+          category: "esophageal",
+          danger: "high",
+          key_discriminators: "Mackler triad: forceful vomiting → severe chest/back pain → subcutaneous emphysema. 90%+ mortality if untreated >24h. Left-sided pleural effusion on CXR is a clue.",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["sharp stabbing", "tearing / ripping"],
+            location: ["substernal", "back", "epigastric"],
+            associated_symptoms: ["nausea / vomiting", "dysphagia"],
+            exam_findings: ["subcutaneous emphysema"],
+            risk_factors: ["recent forceful vomiting"]
+          },
+          red_flag_boost: ["subcutaneous emphysema", "hypotension"],
+          exclude_if: [],
+          workup: ["CXR (mediastinal air, left pleural effusion)", "CT chest with oral contrast", "Esophagogram (water-soluble contrast)", "Emergent surgical consult"]
+        },
+        {
+          label: "Esophageal Impaction",
+          tier: "must_not_miss",
+          group: "Esophageal",
+          category: "esophageal",
+          danger: "high",
+          key_discriminators: "Food bolus suddenly stuck mid-meal. Unable to swallow saliva (drooling). Retrosternal pressure/pain. Urgent endoscopy needed — risk of aspiration and perforation.",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["sharp stabbing", "pressure / crushing"],
+            location: ["substernal", "epigastric"],
+            associated_symptoms: ["dysphagia", "nausea / vomiting"]
+          },
+          red_flag_boost: [],
+          exclude_if: [],
+          workup: ["History (food type, timing)", "CXR", "Upper endoscopy — diagnostic + therapeutic"]
+        },
+
+        // ── URGENT / POTENTIALLY LIFE-THREATENING ─────────────
+        {
+          label: "NST ACS — Troponin Decision Point",
+          tier: "urgent",
+          group: null,
+          category: "cardiac",
+          danger: "high",
+          key_discriminators: "ACS presentation with non-STE ECG. This is where serial troponin determines the diagnosis and management: Troponin rises → NSTEMI (heparin + early invasive strategy). Troponin flat at 3h → Unstable Angina (admit, antiplatelet, observation). HEART Score predicts 30-day MACE risk.",
+          match_features: {
+            pain_quality: ["pressure / crushing"],
+            location: ["substernal"],
+            associated_symptoms: ["dyspnea / SOB", "diaphoresis"],
+            risk_factors: ["CAD / prior MI", "HTN", "smoking", "diabetes"]
+          },
+          red_flag_boost: ["hypotension"],
+          exclude_if: [],
+          workup: ["ECG (repeat 15–30 min if initial negative)", "Troponin at 0h and 3h", "HEART Score (see below)", "Heparin if NSTEMI confirmed", "Cardiology consult"]
+        },
+
+        // ── NON-EMERGENT: VISCERAL ───────────────────────────
+        {
+          label: "Pericarditis",
+          tier: "non_emergent",
+          group: "Visceral",
+          category: "cardiac",
+          danger: "medium",
+          key_discriminators: "Sharp pain worse lying flat, better leaning forward. Friction rub on auscultation. ECG: diffuse saddle-shaped STE + PR depression. Often post-viral.",
+          match_features: {
+            onset: ["gradual", "sudden"],
+            pain_quality: ["sharp stabbing"],
             location: ["substernal"],
             associated_symptoms: ["fever"],
             risk_factors: ["viral illness"]
           },
           red_flag_boost: [],
           exclude_if: [],
-          workup: ["ECG", "Echo"]
+          workup: ["ECG (diffuse STE, PR depression)", "Echo (rule out effusion/tamponade)", "CBC, CRP, ESR", "NSAIDs + colchicine"]
         },
         {
-          label: "GERD",
+          label: "GERD / Esophageal Spasm",
+          tier: "non_emergent",
+          group: "Visceral",
           category: "GI",
           danger: "low",
+          key_discriminators: "Burning retrosternal pain, worse after meals and lying down, often relieved by antacids. Esophageal spasm can mimic ACS — responds to nitroglycerin. Diagnosis of exclusion.",
           match_features: {
             onset: ["intermittent", "gradual"],
-            pain_quality: ["burning"],
+            pain_quality: ["burning", "pressure / crushing"],
             location: ["substernal", "epigastric"],
-            radiation: ["none"],
-            associated_symptoms: ["nausea"]
+            associated_symptoms: ["nausea / vomiting"]
           },
           red_flag_boost: [],
-          exclude_if: ["hypotension", "hypoxia"],
-          workup: ["Trial of antacid"]
+          exclude_if: [],
+          workup: ["GI cocktail or antacid trial", "Upper endoscopy if recurrent", "Manometry if spasm suspected"]
         },
         {
-          label: "Costochondritis",
+          label: "Pneumonia / Pleuritis",
+          tier: "non_emergent",
+          group: "Visceral",
+          category: "pulmonary",
+          danger: "medium",
+          key_discriminators: "Pleuritic chest pain + productive cough + fever. CXR consolidation. Pleuritis without infection can follow viral illness or autoimmune conditions.",
+          match_features: {
+            onset: ["gradual"],
+            pain_quality: ["pleuritic (worse with breath)", "sharp stabbing"],
+            location: ["left chest", "right chest"],
+            associated_symptoms: ["fever", "cough", "dyspnea / SOB"]
+          },
+          red_flag_boost: [],
+          exclude_if: [],
+          workup: ["CXR (consolidation/effusion)", "CBC", "Sputum culture + sensitivities", "Antibiotics if confirmed"]
+        },
+        {
+          label: "Heart Failure",
+          tier: "non_emergent",
+          group: "Visceral",
+          category: "cardiac",
+          danger: "medium",
+          key_discriminators: "Dyspnea on exertion, orthopnea, bilateral crackles, JVD, peripheral edema. CXR: cardiomegaly, pulmonary vascular congestion. Elevated BNP.",
+          match_features: {
+            onset: ["gradual"],
+            location: ["substernal", "left chest"],
+            associated_symptoms: ["dyspnea / SOB", "palpitations"],
+            exam_findings: ["JVD"],
+            risk_factors: ["CAD / prior MI", "HTN"]
+          },
+          red_flag_boost: [],
+          exclude_if: [],
+          workup: ["CXR", "BNP / NT-proBNP", "Echo (EF assessment)", "Diuresis if volume overloaded"]
+        },
+
+        // ── NON-EMERGENT: SUPERFICIAL ────────────────────────
+        {
+          label: "Costochondritis / Rib Fracture",
+          tier: "non_emergent",
+          group: "Superficial",
           category: "musculoskeletal",
           danger: "low",
+          key_discriminators: "Reproducible tenderness on palpation of costochondral junctions. Worse with movement, palpation, deep breath. Rib fracture: trauma history, point tenderness.",
           match_features: {
             onset: ["gradual", "intermittent"],
-            pain_quality: ["sharp", "aching"],
+            pain_quality: ["sharp stabbing", "aching / dull"],
             location: ["left chest", "right chest"],
-            radiation: ["none"],
             risk_factors: ["trauma"]
           },
           red_flag_boost: [],
-          exclude_if: ["hypoxia", "hypotension"],
-          workup: ["Exam for reproducibility"]
+          exclude_if: [],
+          workup: ["Physical exam (palpation reproduces pain)", "CXR if rib fracture suspected", "NSAIDs for pain management"]
+        },
+        {
+          label: "Herpes Zoster (Shingles)",
+          tier: "non_emergent",
+          group: "Superficial",
+          category: "dermatologic",
+          danger: "low",
+          key_discriminators: "Burning or stabbing pain in a dermatomal distribution. May precede the vesicular rash by 2–3 days. Look carefully at the skin. Reactivation in older or immunocompromised patients.",
+          match_features: {
+            onset: ["gradual"],
+            pain_quality: ["sharp stabbing", "burning"],
+            location: ["left chest", "right chest"]
+          },
+          red_flag_boost: [],
+          exclude_if: [],
+          workup: ["Skin exam (dermatomal vesicles)", "Antivirals within 72h of rash onset", "Gabapentin for postherpetic neuralgia"]
+        },
+        {
+          label: "Thoracic Radiculopathy",
+          tier: "non_emergent",
+          group: "Superficial",
+          category: "neurologic",
+          danger: "low",
+          key_discriminators: "Dermatomal band-like pain around the chest wall. May worsen with Valsalva, coughing, movement. Often associated with neck or thoracic spine disease.",
+          match_features: {
+            onset: ["gradual", "intermittent"],
+            pain_quality: ["sharp stabbing", "aching / dull"],
+            location: ["left chest", "right chest", "back"]
+          },
+          red_flag_boost: [],
+          exclude_if: [],
+          workup: ["Neurologic exam", "MRI thoracic spine if suspected", "Pain management + physio"]
         }
       ],
       tree: {
         question: "Is the patient unstable?",
         branches: {
           yes: {
-            question: "What pattern stands out most?",
+            question: "Rule out ALL 8 Must-Not-Miss conditions. Key rapid patterns:",
             branches: {
-              "crushing/pressure": { conditions: ["Myocardial Infarction"] },
-              "pleuritic + SOB/hypoxia": { conditions: ["Pulmonary Embolism"] },
-              "tearing + back pain": { conditions: ["Aortic Dissection"] }
+              "tearing + unequal pulses": { conditions: ["Aortic Dissection"] },
+              "JVD + muffled sounds + hypotension": { conditions: ["Cardiac Tamponade"] },
+              "tracheal deviation + absent sounds": { conditions: ["Tension Pneumothorax"] },
+              "pressure + ST changes": { conditions: ["STEMI"] },
+              "pleuritic + hypoxia + risk factors": { conditions: ["Pulmonary Embolism"] },
+              "vomiting → pain + subcut emphysema": { conditions: ["Esophageal Rupture (Boerhaave)"] }
             }
           },
           no: {
-            question: "What is the pain quality?",
+            question: "What is the dominant pain character?",
             branches: {
-              "crushing/pressure": { conditions: ["Myocardial Infarction"] },
-              "tearing": { conditions: ["Aortic Dissection"] },
-              "burning": { conditions: ["GERD"] },
-              "sharp": { conditions: ["Pericarditis", "Costochondritis", "Pulmonary Embolism"] }
+              "pressure / crushing": { conditions: ["STEMI", "Unstable Angina / NSTEMI"] },
+              "tearing / ripping": { conditions: ["Aortic Dissection"] },
+              "pleuritic + SOB": { conditions: ["Pulmonary Embolism", "Tension Pneumothorax", "Pneumonia / Pleuritis"] },
+              "burning / after meals": { conditions: ["GERD / Esophageal Spasm"] },
+              "sharp + reproducible": { conditions: ["Costochondritis / Rib Fracture", "Pericarditis"] },
+              "after forceful vomiting": { conditions: ["Esophageal Rupture (Boerhaave)"] }
             }
           }
         }
       }
     },
+
+    // ── ABDOMINAL PAIN (original scoring approach preserved) ──
     {
       id: "abdominal_pain",
       label: "Abdominal Pain",
@@ -609,10 +1367,13 @@ const DATA = {
   ]
 };
 
+// ── State ───────────────────────────────────────────────────
 let state = {
   selectedComplaint: DATA.complaints[0].id,
   unstable: false,
-  answers: {}
+  answers: {},
+  wellsAnswers: {},
+  heartAnswers: {}
 };
 
 function currentComplaint() {
@@ -628,6 +1389,7 @@ function ensureAnswers() {
   state.answers = next;
 }
 
+// ── Scoring ─────────────────────────────────────────────────
 function scoreCondition(condition) {
   let score = 0;
   let reasons = [];
@@ -642,16 +1404,23 @@ function scoreCondition(condition) {
     }
   });
 
+  // Red flags: check stability, exam_findings, associated_symptoms, and legacy red_flags
+  const allFlags = [
+    ...(answers.stability || []),
+    ...(answers.exam_findings || []),
+    ...(answers.associated_symptoms || []),
+    ...(answers.red_flags || [])
+  ];
+
   (condition.red_flag_boost || []).forEach(flag => {
-    if ((answers.red_flags || []).includes(flag)) {
+    if (allFlags.includes(flag)) {
       score += 3;
       reasons.push(`red flag boost: ${flag}`);
     }
   });
 
   (condition.exclude_if || []).forEach(ex => {
-    const pool = [...(answers.red_flags || []), ...(answers.associated_symptoms || [])];
-    if (pool.includes(ex)) {
+    if (allFlags.includes(ex)) {
       score -= 3;
       reasons.push(`penalty: exclusion feature ${ex}`);
     }
@@ -662,19 +1431,46 @@ function scoreCondition(condition) {
     reasons.push("unstable patient boosted dangerous condition");
   }
 
+  // Wells Score for PE
+  if (state.selectedComplaint === 'chest_pain' && condition.label === 'Pulmonary Embolism') {
+    const hasAny = Object.values(state.wellsAnswers).some(Boolean);
+    if (hasAny) {
+      const ws = calcWells();
+      const wr = wellsRisk(ws);
+      const boost = wr.tier === 'high' ? 12 : wr.tier === 'medium' ? 6 : -4;
+      score += boost;
+      reasons.push(`Wells Score ${wr.label} Risk (${ws} pts) → ${boost >= 0 ? '+' : ''}${boost} adjustment`);
+    }
+  }
+
+  // HEART Score for ACS conditions
+  if (state.selectedComplaint === 'chest_pain' &&
+      (condition.label === 'STEMI' || condition.label === 'Unstable Angina / NSTEMI' || condition.label.includes('NST ACS') || condition.label === 'Myocardial Infarction')) {
+    const hasAny = Object.values(state.heartAnswers).some(v => v != null);
+    if (hasAny) {
+      const hs = calcHEART();
+      const hr = heartRisk(hs);
+      const boost = hr.tier === 'high' ? 12 : hr.tier === 'medium' ? 6 : -4;
+      score += boost;
+      reasons.push(`HEART Score ${hr.label} Risk (${hs} pts) → ${boost >= 0 ? '+' : ''}${boost} adjustment`);
+    }
+  }
+
   return { ...condition, score, reasons };
 }
 
+// ── Render: Complaints ──────────────────────────────────────
 function renderComplaints() {
   const root = document.getElementById("complaints");
   root.innerHTML = DATA.complaints.map(c => `
     <button class="complaint-btn ${c.id === state.selectedComplaint ? "active" : ""}" onclick="selectComplaint('${c.id}')">
       <div><strong>${c.label}</strong></div>
-      <div class="subtle">${c.conditions.length} seeded conditions</div>
+      <div class="subtle">${c.conditions.length} conditions</div>
     </button>
   `).join("");
 }
 
+// ── Render: Questions ───────────────────────────────────────
 function renderQuestions() {
   const comp = currentComplaint();
   ensureAnswers();
@@ -689,7 +1485,7 @@ function renderQuestions() {
               type="${q.type === "single" ? "radio" : "checkbox"}"
               name="${q.field}"
               ${(state.answers[q.field] || []).includes(opt) ? "checked" : ""}
-              onchange="toggleAnswer('${q.field}','${opt}','${q.type}')"
+              onchange="toggleAnswer('${q.field}','${opt.replace(/'/g,"\\'")}','${q.type}')"
             >
             ${opt}
           </label>
@@ -699,6 +1495,7 @@ function renderQuestions() {
   `).join("");
 }
 
+// ── Render: Tree ────────────────────────────────────────────
 function renderTree() {
   const comp = currentComplaint();
   const branchKey = state.unstable ? "yes" : "no";
@@ -706,68 +1503,212 @@ function renderTree() {
   const root = document.getElementById("tree");
   root.innerHTML = `
     <div class="tree">
-      <div class="tree-step"><strong>Tree view</strong></div>
-      <div class="tree-step">${comp.tree.question} <span class="badge ${state.unstable ? "high" : "low"}">${state.unstable ? "Yes" : "No"}</span></div>
-      <div class="tree-step">${first.question}</div>
+      <div class="tree-step"><strong>Reasoning pathway</strong></div>
+      <div class="tree-step">${comp.tree.question} <span class="badge ${state.unstable ? "high" : "low"}">${state.unstable ? "Yes — unstable" : "No — stable"}</span></div>
+      <div class="tree-step" style="color:var(--muted);font-size:0.85rem;">${first.question}</div>
       <div class="tree-conds">
         ${Object.entries(first.branches).map(([k,v]) => `
-          <span title="${v.conditions.join(", ")}">${k} → ${v.conditions.join(", ")}</span>
+          <span title="${v.conditions.join(", ")}">${k} → ${v.conditions.map(annotateCondition).join(", ")}</span>
         `).join("")}
       </div>
     </div>
   `;
 }
 
+// ── Render: Schema-driven card ──────────────────────────────
+function renderDxCard(condition) {
+  const answers = state.answers || {};
+
+  // Matched features
+  const matchedFeatures = [];
+  Object.entries(condition.match_features || {}).forEach(([field, expected]) => {
+    const actual = answers[field] || [];
+    actual.filter(v => expected.includes(v)).forEach(v => matchedFeatures.push(v));
+  });
+
+  // Matched red flags
+  const allFlags = [
+    ...(answers.stability || []),
+    ...(answers.exam_findings || []),
+    ...(answers.associated_symptoms || [])
+  ];
+  const matchedFlags = (condition.red_flag_boost || []).filter(f => allFlags.includes(f));
+
+  const hasMatch = matchedFeatures.length > 0;
+  const hasFlag = matchedFlags.length > 0;
+  const cardClass = hasFlag ? 'has-redflag' : hasMatch ? 'has-match' : '';
+
+  // Score badges
+  let scoreBadge = '';
+  if (condition.label === 'Pulmonary Embolism') scoreBadge = getWellsBadge();
+  if (['STEMI', 'Unstable Angina / NSTEMI'].includes(condition.label) || condition.label.includes('NST ACS')) scoreBadge = getHeartBadge();
+
+  return `
+    <div class="dx-card ${cardClass}">
+      <div class="dx-card-header">
+        <span class="dx-card-name">${condition.label}${scoreBadge}</span>
+        <span class="badge ${condition.danger}" style="margin-left:auto;flex-shrink:0;">${condition.danger.toUpperCase()}</span>
+      </div>
+
+      ${hasMatch || hasFlag ? `
+        <div class="feature-list">
+          ${matchedFeatures.map(f => `<span class="feature-chip present">✓ ${f}</span>`).join('')}
+          ${matchedFlags.map(f => `<span class="feature-chip redflag">⚠ ${f}</span>`).join('')}
+        </div>
+      ` : ''}
+
+      <div class="dx-discriminator">${condition.key_discriminators || ''}</div>
+
+      <div class="dx-workup">
+        <strong style="color:var(--accent);font-size:0.76rem;">NEXT STEP:</strong> ${condition.workup.join(' · ')}
+      </div>
+    </div>
+  `;
+}
+
+// ── Render: Tier section ────────────────────────────────────
+function renderTierSection(title, conditions, colorClass, expanded) {
+  if (!conditions.length) return '';
+
+  const groups = {};
+  conditions.forEach(c => {
+    const g = c.group || 'Other';
+    if (!groups[g]) groups[g] = [];
+    groups[g].push(c);
+  });
+
+  const groupNames = Object.keys(groups);
+  const showGroupHeaders = groupNames.length > 1;
+  const totalMatches = conditions.reduce((n, c) => {
+    const a = state.answers || {};
+    const allFlags = [...(a.stability||[]),...(a.exam_findings||[]),...(a.associated_symptoms||[])];
+    const featureMatch = Object.entries(c.match_features||{}).some(([f,e])=>(a[f]||[]).some(v=>e.includes(v)));
+    const flagMatch = (c.red_flag_boost||[]).some(f=>allFlags.includes(f));
+    return n + (featureMatch || flagMatch ? 1 : 0);
+  }, 0);
+
+  const matchNote = totalMatches > 0
+    ? `<span style="margin-left:6px;font-size:0.72rem;font-weight:700;color:${colorClass==='red'?'#ffccd3':colorClass==='yellow'?'#ffddab':'#9ef5c5'};">${totalMatches} matching</span>`
+    : '';
+
+  return `
+    <div class="tier-section">
+      <div class="tier-header tier-${colorClass}"
+           onclick="var b=this.nextElementSibling; var c=this.querySelector('.tier-caret'); if(b.style.display==='none'){b.style.display='block';c.textContent='▾';}else{b.style.display='none';c.textContent='▸';}">
+        <span class="tier-label">${title}</span>
+        ${matchNote}
+        <span style="margin-left:auto;font-size:0.72rem;color:var(--muted);">${conditions.length} conditions</span>
+        <span class="tier-caret" style="margin-left:8px;font-size:0.75rem;color:var(--muted);">${expanded ? '▾' : '▸'}</span>
+      </div>
+      <div class="tier-body" style="${expanded ? '' : 'display:none'}">
+        ${groupNames.map(g => `
+          ${showGroupHeaders ? `<div class="group-header">${g}</div>` : ''}
+          ${groups[g].map(c => renderDxCard(c)).join('')}
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ── Render: Management anchors ──────────────────────────────
+function renderManagementAnchors() {
+  return `
+    <div class="mgmt-bar">
+      <div class="mgmt-bar-title">Always order first — Chest Pain</div>
+      <div class="mgmt-chips">
+        <span class="mgmt-chip always">ECG — immediate</span>
+        <span class="mgmt-chip always">CXR</span>
+        <span class="mgmt-chip always">Troponin (serial)</span>
+        <span class="mgmt-chip always">IV access + BMP</span>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="mgmt-bar-title">Conditional workup — based on suspected diagnosis</div>
+        <div class="mgmt-chips">
+          <span class="mgmt-chip cond">CTPA → PE suspected</span>
+          <span class="mgmt-chip cond">CTA chest → dissection</span>
+          <span class="mgmt-chip cond">POCUS → tamponade / PTX</span>
+          <span class="mgmt-chip cond">D-dimer → low / mod Wells</span>
+          <span class="mgmt-chip cond">Esophagogram → Boerhaave</span>
+          <span class="mgmt-chip cond">Upper endoscopy → impaction</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Render: Results (schema-driven for chest pain) ──────────
 function renderResults() {
   const comp = currentComplaint();
-  const results = comp.conditions.map(scoreCondition).sort((a,b) => b.score - a.score);
 
-  document.getElementById("cards").innerHTML = results.slice(0,4).map(r => `
-    <div class="card">
-      <h3>${r.label}</h3>
-      <div class="small">${r.category}</div>
-      <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
-        <span class="badge ${r.danger}">${r.danger.toUpperCase()}</span>
-        <span class="score">Score: ${r.score}</span>
+  if (comp.id !== 'chest_pain') {
+    // Original score-based approach for abdominal pain
+    const results = comp.conditions.map(scoreCondition).sort((a,b) => b.score - a.score);
+
+    document.getElementById("cards").innerHTML = results.slice(0,4).map(r => `
+      <div class="card">
+        <h3>${annotateCondition(r.label)}</h3>
+        <div class="small">${r.category}</div>
+        <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+          <span class="badge ${r.danger}">${r.danger.toUpperCase()}</span>
+          <span class="score">Score: ${r.score}</span>
+        </div>
+        <ul class="trace">
+          ${(r.reasons.length ? r.reasons : ["No strong feature matches yet"]).map(x => `<li>${x}</li>`).join("")}
+        </ul>
+        <div class="small" style="margin-top:8px;">Suggested workup: ${r.workup.join(", ")}</div>
       </div>
-      <ul class="trace">
-        ${(r.reasons.length ? r.reasons : ["No strong feature matches yet"]).map(x => `<li>${x}</li>`).join("")}
-      </ul>
-      <div class="small" style="margin-top:8px;">Suggested workup: ${r.workup.join(", ")}</div>
-    </div>
-  `).join("");
+    `).join("");
 
-  document.getElementById("table").innerHTML = `
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Condition</th>
-          <th>Category</th>
-          <th>Danger</th>
-          <th>Score</th>
-          <th>Suggested Workup</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${results.map(r => `
+    document.getElementById("table").innerHTML = `
+      <h2 style="margin-top:18px;">All Conditions</h2>
+      <table class="table">
+        <thead>
           <tr>
-            <td>${r.label}</td>
-            <td>${r.category}</td>
-            <td><span class="badge ${r.danger}">${r.danger}</span></td>
-            <td class="score">${r.score}</td>
-            <td>${r.workup.join(", ")}</td>
+            <th>Condition</th>
+            <th>Category</th>
+            <th>Danger</th>
+            <th>Score</th>
+            <th>Suggested Workup</th>
           </tr>
-        `).join("")}
-      </tbody>
-    </table>
-  `;
+        </thead>
+        <tbody>
+          ${results.map(r => `
+            <tr>
+              <td>${annotateCondition(r.label)}</td>
+              <td>${r.category}</td>
+              <td><span class="badge ${r.danger}">${r.danger}</span></td>
+              <td class="score">${r.score}</td>
+              <td>${r.workup.join(", ")}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+    return;
+  }
+
+  // ── Schema-driven rendering for chest pain ─────────────────
+  const results = comp.conditions.map(scoreCondition);
+  const mustNotMiss = results.filter(r => r.tier === 'must_not_miss');
+  const urgent      = results.filter(r => r.tier === 'urgent');
+  const nonEmergent = results.filter(r => r.tier === 'non_emergent');
+
+  document.getElementById("cards").innerHTML =
+    renderTierSection('🔴 Must Not Miss — 4+2+2', mustNotMiss, 'red', true) +
+    renderTierSection('🟡 Potentially Life-Threatening', urgent, 'yellow', true) +
+    renderTierSection('🟢 Non-Emergent', nonEmergent, 'green', false) +
+    renderManagementAnchors();
+
+  document.getElementById("table").innerHTML = '';
 }
 
+// ── Render: All ─────────────────────────────────────────────
 function renderAll() {
   renderComplaints();
   renderQuestions();
   renderTree();
   renderResults();
+  renderScoringTools();
   document.querySelectorAll('input[name="unstable"]').forEach(el => {
     el.checked = (el.value === "yes") === state.unstable;
     el.onchange = () => {
@@ -782,6 +1723,8 @@ function selectComplaint(id) {
   state.selectedComplaint = id;
   state.answers = {};
   state.unstable = false;
+  state.wellsAnswers = {};
+  state.heartAnswers = {};
   renderAll();
 }
 
