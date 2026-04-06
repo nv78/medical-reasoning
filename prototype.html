@@ -1,0 +1,804 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Medical Differential Prototype</title>
+  <style>
+    :root {
+      --bg: #070d1d;
+      --panel: rgba(15,23,42,0.92);
+      --line: #2f3b53;
+      --text: #e8eef8;
+      --muted: #98a9c4;
+      --accent: #42c0ff;
+      --accent2: #f9f871;
+      --success: #38d68f;
+      --warn: #ffbd3e;
+      --danger: #fd6b77;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+      transition: all 150ms ease;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 10%, rgba(40, 178, 251, 0.22), transparent 40%),
+                  linear-gradient(180deg, #050914, var(--bg));
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px 18px 28px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      background: rgba(4,11,22,0.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.01em;
+    }
+
+    .header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 860px;
+    }
+
+    .banner {
+      align-self: start;
+      color: var(--text);
+      background: linear-gradient(140deg, rgba(40,178,251,0.18), rgba(222,254,71,0.18));
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 270px minmax(320px, 1.08fr) minmax(420px, 1.25fr);
+      gap: 16px;
+    }
+
+    .panel {
+      background: rgba(8, 14, 28, 0.94);
+      border: 1px solid rgba(120, 146, 176, 0.2);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: inset 0 0 0 1px rgba(81, 103, 137, 0.25), 0 8px 20px rgba(0, 0, 0, 0.22);
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+
+    .panel:hover {
+      border-color: rgba(66,192,255,0.36);
+      transform: translateY(-1px);
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid rgba(120, 146, 176, 0.3);
+      padding-bottom: 8px;
+      color: #d9e4f3;
+    }
+
+    .panel .panel-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .complaint-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      margin: 0 0 10px;
+      border-radius: 14px;
+      background: rgba(8, 16, 32, 0.8);
+      border: 1px solid var(--line);
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .complaint-btn:hover {
+      border-color: rgba(66,192,255,0.8);
+      box-shadow: 0 0 0 1px rgba(66,192,255,0.18);
+    }
+
+    .complaint-btn.active {
+      background: rgba(40,178,251,0.16);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(40,178,251,0.28);
+    }
+
+    .complaint-btn strong {
+      font-size: 1rem;
+    }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .qblock {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .qtitle {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #cdd6ee;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(9,17,34,0.82);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 0.88rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 120ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(66, 192, 255, 0.6);
+      background: rgba(29, 47, 82, 0.95);
+    }
+
+    .pill input {
+      accent-color: var(--accent);
+      margin: 0;
+      transform: translateY(0.08em);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      overflow-x: auto;
+    }
+
+    .table th,
+    .table td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 10px;
+      text-align: left;
+      vertical-align: top;
+      min-width: 80px;
+    }
+
+    .table th {
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+      color: #bfc8dc;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .table tbody tr:hover {
+      background: rgba(65, 113, 190, 0.14);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .high { background: rgba(253, 107, 119, 0.2); color: #ffccd3; border: 1px solid rgba(253, 107, 119, 0.38); }
+    .medium { background: rgba(255, 189, 62, 0.2); color: #ffddab; border: 1px solid rgba(255, 189, 62, 0.45); }
+    .low { background: rgba(56, 214, 143, 0.2); color: #c5ffe0; border: 1px solid rgba(56, 214, 143, 0.45); }
+
+    .score {
+      font-weight: 700;
+      color: var(--accent2);
+      min-width: 75px;
+      display: inline-block;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      background: rgba(8, 15, 32, 0.92);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .small {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .trace {
+      margin: 8px 0 0;
+      padding-left: 20px;
+      color: #d1d5db;
+      font-size: 0.85rem;
+    }
+
+    .tree {
+      background: rgba(8, 15, 28, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: inset 0 0 0 1px rgba(66, 192, 255, 0.05);
+    }
+
+    .tree-step { margin-bottom: 10px; }
+
+    .tree-conds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tree-conds span {
+      background: rgba(222,254,71,0.2);
+      color: #fef9c3;
+      border: 1px solid rgba(222,254,71,0.45);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+
+    .footer {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 1180px) {
+      .grid { grid-template-columns: 1fr; }
+      .wrap { padding: 16px; }
+    }
+
+    @media (max-width: 760px) {
+      .header { grid-template-columns: 1fr; text-align: left; }
+      .grid { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div>
+      <h1>Chief Complaint Differential Explorer</h1>
+      <p>Prototype app that turns static medical complaint visuals into a tree + filterable table + ranked match engine. Seeded for Chest Pain and Abdominal Pain.</p>
+    </div>
+    <div class="banner">Prototype only. Educational / product design demo, not clinical guidance.</div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Chief Complaints</h2>
+      <div id="complaints"></div>
+      <div class="footer">You can start with 2 complaints and expand later.</div>
+    </div>
+
+    <div class="panel">
+      <h2>Guided Intake</h2>
+      <div class="subtle">Select characteristics. Results update instantly.</div>
+      <div class="qblock">
+        <div class="qtitle">Patient unstable?</div>
+        <div class="options">
+          <label class="pill"><input type="radio" name="unstable" value="yes"> Yes</label>
+          <label class="pill"><input type="radio" name="unstable" value="no" checked> No</label>
+        </div>
+      </div>
+      <div id="questions"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Results</h2>
+      <div id="tree"></div>
+      <div id="cards"></div>
+      <h2 style="margin-top:18px;">Filterable Table</h2>
+      <div id="table"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  complaints: [
+    {
+      id: "chest_pain",
+      label: "Chest Pain",
+      questions: [
+        { field: "onset", label: "When did it start?", type: "single", options: ["sudden", "gradual", "intermittent"] },
+        { field: "pain_quality", label: "How would you describe it?", type: "multi", options: ["pressure", "crushing", "sharp", "burning", "tearing", "pleuritic", "aching"] },
+        { field: "location", label: "Where is it located?", type: "multi", options: ["substernal", "left chest", "right chest", "diffuse", "epigastric", "back"] },
+        { field: "radiation", label: "Does it radiate anywhere?", type: "multi", options: ["left arm", "right arm", "jaw", "back", "none"] },
+        { field: "associated_symptoms", label: "Associated symptoms", type: "multi", options: ["shortness of breath", "nausea", "vomiting", "diaphoresis", "cough", "fever", "syncope", "palpitations"] },
+        { field: "risk_factors", label: "Relevant risk factors", type: "multi", options: ["CAD", "smoking", "diabetes", "hypertension", "recent surgery", "immobility", "DVT history", "trauma", "viral illness"] },
+        { field: "red_flags", label: "Red flags", type: "multi", options: ["hypotension", "hypoxia", "tachycardia", "neurologic deficit", "unequal pulses"] }
+      ],
+      conditions: [
+        {
+          label: "Myocardial Infarction",
+          category: "cardiac",
+          danger: "high",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["pressure", "crushing"],
+            location: ["substernal", "left chest"],
+            radiation: ["left arm", "jaw"],
+            associated_symptoms: ["shortness of breath", "nausea", "diaphoresis"],
+            risk_factors: ["CAD", "smoking", "diabetes", "hypertension"]
+          },
+          red_flag_boost: ["hypotension"],
+          exclude_if: [],
+          workup: ["ECG", "Troponin", "CXR"]
+        },
+        {
+          label: "Pulmonary Embolism",
+          category: "pulmonary",
+          danger: "high",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["sharp", "pleuritic"],
+            location: ["left chest", "right chest", "diffuse"],
+            associated_symptoms: ["shortness of breath", "syncope"],
+            risk_factors: ["recent surgery", "immobility", "DVT history"]
+          },
+          red_flag_boost: ["hypoxia", "tachycardia"],
+          exclude_if: [],
+          workup: ["Pulse ox", "D-dimer", "CTPA"]
+        },
+        {
+          label: "Aortic Dissection",
+          category: "vascular",
+          danger: "high",
+          match_features: {
+            onset: ["sudden"],
+            pain_quality: ["tearing"],
+            location: ["substernal", "back"],
+            radiation: ["back"],
+            associated_symptoms: ["syncope"],
+            risk_factors: ["hypertension"]
+          },
+          red_flag_boost: ["neurologic deficit", "unequal pulses", "hypotension"],
+          exclude_if: [],
+          workup: ["BP both arms", "CTA chest"]
+        },
+        {
+          label: "Pericarditis",
+          category: "cardiac",
+          danger: "medium",
+          match_features: {
+            onset: ["gradual", "sudden"],
+            pain_quality: ["sharp"],
+            location: ["substernal"],
+            associated_symptoms: ["fever"],
+            risk_factors: ["viral illness"]
+          },
+          red_flag_boost: [],
+          exclude_if: [],
+          workup: ["ECG", "Echo"]
+        },
+        {
+          label: "GERD",
+          category: "GI",
+          danger: "low",
+          match_features: {
+            onset: ["intermittent", "gradual"],
+            pain_quality: ["burning"],
+            location: ["substernal", "epigastric"],
+            radiation: ["none"],
+            associated_symptoms: ["nausea"]
+          },
+          red_flag_boost: [],
+          exclude_if: ["hypotension", "hypoxia"],
+          workup: ["Trial of antacid"]
+        },
+        {
+          label: "Costochondritis",
+          category: "musculoskeletal",
+          danger: "low",
+          match_features: {
+            onset: ["gradual", "intermittent"],
+            pain_quality: ["sharp", "aching"],
+            location: ["left chest", "right chest"],
+            radiation: ["none"],
+            risk_factors: ["trauma"]
+          },
+          red_flag_boost: [],
+          exclude_if: ["hypoxia", "hypotension"],
+          workup: ["Exam for reproducibility"]
+        }
+      ],
+      tree: {
+        question: "Is the patient unstable?",
+        branches: {
+          yes: {
+            question: "What pattern stands out most?",
+            branches: {
+              "crushing/pressure": { conditions: ["Myocardial Infarction"] },
+              "pleuritic + SOB/hypoxia": { conditions: ["Pulmonary Embolism"] },
+              "tearing + back pain": { conditions: ["Aortic Dissection"] }
+            }
+          },
+          no: {
+            question: "What is the pain quality?",
+            branches: {
+              "crushing/pressure": { conditions: ["Myocardial Infarction"] },
+              "tearing": { conditions: ["Aortic Dissection"] },
+              "burning": { conditions: ["GERD"] },
+              "sharp": { conditions: ["Pericarditis", "Costochondritis", "Pulmonary Embolism"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      id: "abdominal_pain",
+      label: "Abdominal Pain",
+      questions: [
+        { field: "onset", label: "When did it start?", type: "single", options: ["sudden", "gradual", "intermittent"] },
+        { field: "location", label: "Where is it located?", type: "multi", options: ["RUQ", "LUQ", "epigastric", "periumbilical", "RLQ", "LLQ", "diffuse", "suprapubic"] },
+        { field: "quality", label: "How would you describe it?", type: "multi", options: ["sharp", "crampy", "burning", "colicky", "tearing", "pressure"] },
+        { field: "associated_symptoms", label: "Associated symptoms", type: "multi", options: ["fever", "nausea", "vomiting", "diarrhea", "constipation", "dysuria", "GI bleed", "jaundice"] },
+        { field: "risk_factors", label: "Relevant risk factors", type: "multi", options: ["gallstones", "alcohol", "pregnancy", "prior surgery", "AAA risk", "kidney stones", "immunosuppression"] },
+        { field: "red_flags", label: "Red flags", type: "multi", options: ["hypotension", "peritonitis", "rigid abdomen", "GI bleed", "sepsis concern"] }
+      ],
+      conditions: [
+        {
+          label: "Appendicitis",
+          category: "GI",
+          danger: "medium",
+          match_features: {
+            onset: ["gradual"],
+            location: ["RLQ", "periumbilical"],
+            quality: ["sharp"],
+            associated_symptoms: ["fever", "nausea", "vomiting"]
+          },
+          red_flag_boost: ["peritonitis"],
+          exclude_if: [],
+          workup: ["CBC", "CT abdomen/pelvis"]
+        },
+        {
+          label: "Cholecystitis",
+          category: "GI",
+          danger: "medium",
+          match_features: {
+            onset: ["gradual"],
+            location: ["RUQ"],
+            quality: ["sharp"],
+            associated_symptoms: ["fever", "nausea", "vomiting"],
+            risk_factors: ["gallstones"]
+          },
+          red_flag_boost: ["sepsis concern"],
+          exclude_if: [],
+          workup: ["RUQ ultrasound", "LFTs"]
+        },
+        {
+          label: "Pancreatitis",
+          category: "GI",
+          danger: "medium",
+          match_features: {
+            onset: ["sudden", "gradual"],
+            location: ["epigastric"],
+            quality: ["sharp"],
+            associated_symptoms: ["nausea", "vomiting"],
+            risk_factors: ["alcohol", "gallstones"]
+          },
+          red_flag_boost: ["hypotension"],
+          exclude_if: [],
+          workup: ["Lipase", "CMP"]
+        },
+        {
+          label: "Small Bowel Obstruction",
+          category: "surgical",
+          danger: "high",
+          match_features: {
+            onset: ["gradual", "intermittent"],
+            location: ["diffuse"],
+            quality: ["crampy", "colicky"],
+            associated_symptoms: ["vomiting", "constipation"],
+            risk_factors: ["prior surgery"]
+          },
+          red_flag_boost: ["peritonitis", "rigid abdomen"],
+          exclude_if: [],
+          workup: ["CT abdomen/pelvis"]
+        },
+        {
+          label: "AAA",
+          category: "vascular",
+          danger: "high",
+          match_features: {
+            onset: ["sudden"],
+            location: ["diffuse"],
+            quality: ["tearing", "pressure"],
+            risk_factors: ["AAA risk"]
+          },
+          red_flag_boost: ["hypotension"],
+          exclude_if: [],
+          workup: ["POCUS", "CTA"]
+        },
+        {
+          label: "Gastroenteritis",
+          category: "GI",
+          danger: "low",
+          match_features: {
+            onset: ["gradual"],
+            location: ["diffuse"],
+            quality: ["crampy"],
+            associated_symptoms: ["nausea", "vomiting", "diarrhea"]
+          },
+          red_flag_boost: [],
+          exclude_if: ["hypotension", "GI bleed"],
+          workup: ["Clinical assessment"]
+        }
+      ],
+      tree: {
+        question: "Are there peritoneal signs or instability?",
+        branches: {
+          yes: {
+            question: "What feature dominates?",
+            branches: {
+              "tearing + hypotension": { conditions: ["AAA"] },
+              "diffuse + vomiting + constipation": { conditions: ["Small Bowel Obstruction"] },
+              "RLQ + fever": { conditions: ["Appendicitis"] }
+            }
+          },
+          no: {
+            question: "Where is the pain located?",
+            branches: {
+              "RUQ": { conditions: ["Cholecystitis"] },
+              "epigastric": { conditions: ["Pancreatitis"] },
+              "RLQ": { conditions: ["Appendicitis"] },
+              "diffuse": { conditions: ["Gastroenteritis", "Small Bowel Obstruction"] }
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+let state = {
+  selectedComplaint: DATA.complaints[0].id,
+  unstable: false,
+  answers: {}
+};
+
+function currentComplaint() {
+  return DATA.complaints.find(c => c.id === state.selectedComplaint);
+}
+
+function ensureAnswers() {
+  const comp = currentComplaint();
+  const next = {};
+  comp.questions.forEach(q => {
+    next[q.field] = state.answers[q.field] || [];
+  });
+  state.answers = next;
+}
+
+function scoreCondition(condition) {
+  let score = 0;
+  let reasons = [];
+  const answers = state.answers || {};
+
+  Object.entries(condition.match_features || {}).forEach(([field, expected]) => {
+    const actual = answers[field] || [];
+    const overlap = actual.filter(v => expected.includes(v));
+    if (overlap.length) {
+      score += overlap.length * 2;
+      reasons.push(`${field} matched: ${overlap.join(", ")}`);
+    }
+  });
+
+  (condition.red_flag_boost || []).forEach(flag => {
+    if ((answers.red_flags || []).includes(flag)) {
+      score += 3;
+      reasons.push(`red flag boost: ${flag}`);
+    }
+  });
+
+  (condition.exclude_if || []).forEach(ex => {
+    const pool = [...(answers.red_flags || []), ...(answers.associated_symptoms || [])];
+    if (pool.includes(ex)) {
+      score -= 3;
+      reasons.push(`penalty: exclusion feature ${ex}`);
+    }
+  });
+
+  if (state.unstable && condition.danger === "high") {
+    score += 4;
+    reasons.push("unstable patient boosted dangerous condition");
+  }
+
+  return { ...condition, score, reasons };
+}
+
+function renderComplaints() {
+  const root = document.getElementById("complaints");
+  root.innerHTML = DATA.complaints.map(c => `
+    <button class="complaint-btn ${c.id === state.selectedComplaint ? "active" : ""}" onclick="selectComplaint('${c.id}')">
+      <div><strong>${c.label}</strong></div>
+      <div class="subtle">${c.conditions.length} seeded conditions</div>
+    </button>
+  `).join("");
+}
+
+function renderQuestions() {
+  const comp = currentComplaint();
+  ensureAnswers();
+  const root = document.getElementById("questions");
+  root.innerHTML = comp.questions.map(q => `
+    <div class="qblock">
+      <div class="qtitle">${q.label}</div>
+      <div class="options">
+        ${q.options.map(opt => `
+          <label class="pill">
+            <input
+              type="${q.type === "single" ? "radio" : "checkbox"}"
+              name="${q.field}"
+              ${(state.answers[q.field] || []).includes(opt) ? "checked" : ""}
+              onchange="toggleAnswer('${q.field}','${opt}','${q.type}')"
+            >
+            ${opt}
+          </label>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderTree() {
+  const comp = currentComplaint();
+  const branchKey = state.unstable ? "yes" : "no";
+  const first = comp.tree.branches[branchKey];
+  const root = document.getElementById("tree");
+  root.innerHTML = `
+    <div class="tree">
+      <div class="tree-step"><strong>Tree view</strong></div>
+      <div class="tree-step">${comp.tree.question} <span class="badge ${state.unstable ? "high" : "low"}">${state.unstable ? "Yes" : "No"}</span></div>
+      <div class="tree-step">${first.question}</div>
+      <div class="tree-conds">
+        ${Object.entries(first.branches).map(([k,v]) => `
+          <span title="${v.conditions.join(", ")}">${k} → ${v.conditions.join(", ")}</span>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderResults() {
+  const comp = currentComplaint();
+  const results = comp.conditions.map(scoreCondition).sort((a,b) => b.score - a.score);
+
+  document.getElementById("cards").innerHTML = results.slice(0,4).map(r => `
+    <div class="card">
+      <h3>${r.label}</h3>
+      <div class="small">${r.category}</div>
+      <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+        <span class="badge ${r.danger}">${r.danger.toUpperCase()}</span>
+        <span class="score">Score: ${r.score}</span>
+      </div>
+      <ul class="trace">
+        ${(r.reasons.length ? r.reasons : ["No strong feature matches yet"]).map(x => `<li>${x}</li>`).join("")}
+      </ul>
+      <div class="small" style="margin-top:8px;">Suggested workup: ${r.workup.join(", ")}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("table").innerHTML = `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>Category</th>
+          <th>Danger</th>
+          <th>Score</th>
+          <th>Suggested Workup</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${results.map(r => `
+          <tr>
+            <td>${r.label}</td>
+            <td>${r.category}</td>
+            <td><span class="badge ${r.danger}">${r.danger}</span></td>
+            <td class="score">${r.score}</td>
+            <td>${r.workup.join(", ")}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderAll() {
+  renderComplaints();
+  renderQuestions();
+  renderTree();
+  renderResults();
+  document.querySelectorAll('input[name="unstable"]').forEach(el => {
+    el.checked = (el.value === "yes") === state.unstable;
+    el.onchange = () => {
+      state.unstable = el.value === "yes";
+      renderTree();
+      renderResults();
+    };
+  });
+}
+
+function selectComplaint(id) {
+  state.selectedComplaint = id;
+  state.answers = {};
+  state.unstable = false;
+  renderAll();
+}
+
+function toggleAnswer(field, option, type) {
+  const current = state.answers[field] || [];
+  if (type === "single") {
+    state.answers[field] = [option];
+  } else {
+    state.answers[field] = current.includes(option)
+      ? current.filter(v => v !== option)
+      : [...current, option];
+  }
+  renderQuestions();
+  renderResults();
+}
+
+renderAll();
+</script>
+</body>
+</html>
