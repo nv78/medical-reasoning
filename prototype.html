@@ -605,6 +605,167 @@
     #cards::-webkit-scrollbar { width: 4px; }
     #cards::-webkit-scrollbar-track { background: transparent; }
     #cards::-webkit-scrollbar-thumb { background: rgba(66,192,255,0.2); border-radius: 4px; }
+
+    /* ── Assessment & Plan Narrative ────────────────────────── */
+    .narr-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0;
+      font-size: 0.9rem;
+    }
+
+    .narr-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+    .narr-status-unstable { background: rgba(253,107,119,0.12); border: 1px solid rgba(253,107,119,0.45); }
+    .narr-status-stable   { background: rgba(56,214,143,0.1);   border: 1px solid rgba(56,214,143,0.35); }
+    .narr-status-icon  { font-size: 1.3rem; }
+    .narr-status-text  { font-size: 1rem; }
+
+    .narr-stabilize {
+      background: rgba(253,107,119,0.1);
+      border: 1px solid rgba(253,107,119,0.4);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+    .narr-stabilize-title {
+      font-weight: 800;
+      color: #ffccd3;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .narr-list {
+      margin: 6px 0 0;
+      padding-left: 18px;
+      color: #c8d4e8;
+      font-size: 0.84rem;
+      line-height: 1.75;
+    }
+    .narr-list-compact { margin-top: 4px; }
+
+    .narr-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--accent);
+      font-weight: 700;
+      margin: 20px 0 10px;
+    }
+
+    .narr-dx-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 13px 15px;
+      margin-bottom: 10px;
+      background: rgba(8,15,32,0.92);
+      transition: border-color 120ms ease;
+    }
+    .narr-dx-item:hover { border-color: rgba(66,192,255,0.25); }
+    .narr-dx-item.narr-faded { opacity: 0.5; }
+
+    .narr-dx-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .narr-label-tag {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 999px;
+      border: 1px solid;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .narr-dx-name { font-weight: 700; font-size: 0.95rem; }
+
+    .narr-clinical-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin: 2px 0 8px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .narr-for     { color: #9ef5c5; }
+    .narr-against { color: #98a9c4; }
+
+    .narr-score-ctx {
+      padding: 6px 10px;
+      background: rgba(66,192,255,0.06);
+      border: 1px solid rgba(66,192,255,0.16);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #a8d4ee;
+      margin: 6px 0;
+    }
+
+    .narr-empiric {
+      background: rgba(255,189,62,0.07);
+      border: 1px solid rgba(255,189,62,0.28);
+      border-radius: 8px;
+      padding: 9px 12px;
+      margin: 7px 0;
+    }
+
+    .narr-tests {
+      margin-top: 7px;
+      padding: 6px 10px;
+      background: rgba(66,192,255,0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(66,192,255,0.12);
+      font-size: 0.8rem;
+      color: #a8d4ee;
+      line-height: 1.5;
+    }
+
+    .narr-overall {
+      background: rgba(4,11,22,0.9);
+      border: 1px solid rgba(66,192,255,0.22);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+    .narr-impression {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin: 8px 0 16px;
+    }
+    .narr-plan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 700px) { .narr-plan-grid { grid-template-columns: 1fr; } }
+    .narr-plan-col {
+      background: rgba(8,15,32,0.85);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 14px;
+    }
+    .narr-plan-label {
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    .narr-plan-items { font-size: 0.84rem; color: var(--text); line-height: 1.55; }
   </style>
 </head>
 <body>
@@ -654,6 +815,15 @@
     <div class="calc-row">
       <div class="panel" id="wells-panel"></div>
       <div class="panel" id="heart-panel"></div>
+    </div>
+  </div>
+
+  <!-- Assessment & Plan Narrative -->
+  <div id="narrative-section" style="margin-top:16px;">
+    <div class="panel">
+      <h2>Assessment &amp; Plan</h2>
+      <div class="subtle" style="margin-bottom:14px;">Auto-generated from clinical inputs. Updates in real time. Not a substitute for clinical judgment.</div>
+      <div id="narrative-content"></div>
     </div>
   </div>
 </div>
@@ -727,6 +897,7 @@ function toggleWells(id) {
   renderScoringTools();
   renderResults();
   renderTree();
+  renderNarrative();
 }
 
 function setHEART(id, value) {
@@ -734,6 +905,7 @@ function setHEART(id, value) {
   renderScoringTools();
   renderResults();
   renderTree();
+  renderNarrative();
 }
 
 // ── Score badge helpers ─────────────────────────────────────
@@ -1702,6 +1874,290 @@ function renderResults() {
   document.getElementById("table").innerHTML = '';
 }
 
+// ── Empiric treatment lookup ────────────────────────────────
+const EMPIRIC_TX = {
+  'STEMI': [
+    'Aspirin 325 mg PO immediately (chewed)',
+    'Heparin IV — 60 U/kg bolus (max 4,000 U), then 12 U/kg/hr',
+    'Activate cath lab protocol — door-to-balloon target < 90 min',
+    'Nitroglycerin 0.4 mg SL q5 min × 3 if BP allows (hold if inferior MI with RV involvement)',
+    'Consider P2Y12 inhibitor (clopidogrel/ticagrelor/prasugrel) per cardiology'
+  ],
+  'Unstable Angina / NSTEMI': [
+    'Aspirin 325 mg PO immediately',
+    'Heparin IV or enoxaparin 1 mg/kg SQ',
+    'Nitroglycerin SL/IV for ongoing ischemic pain',
+    'Cardiology consult — early invasive strategy for NSTEMI',
+    'Hold P2Y12 until coronary anatomy defined if likely going to cath'
+  ],
+  'NST ACS — Troponin Decision Point': [
+    'Aspirin 325 mg PO immediately',
+    'Heparin IV while awaiting serial troponin result',
+    'Nitroglycerin SL for pain management',
+    'Serial troponin at 0 h and 3 h determines NSTEMI vs. UA'
+  ],
+  'Pulmonary Embolism': [
+    'Anticoagulation — start empirically if high clinical probability',
+    'LMWH: enoxaparin 1 mg/kg SQ q12h; or UFH if renal failure / planned procedure',
+    'If massive PE (hemodynamic instability): systemic tPA (alteplase 100 mg IV over 2 h)',
+    'O₂ supplementation to target SpO₂ ≥ 94%',
+    'Avoid hypotension — vasopressors (norepinephrine) if needed'
+  ],
+  'Aortic Dissection': [
+    'IV beta-blocker FIRST — labetalol 20 mg IV bolus or esmolol infusion',
+    'Target HR < 60 bpm AND SBP < 120 mmHg',
+    'Add IV vasodilator (nicardipine) only AFTER HR controlled',
+    'ABSOLUTELY NO thrombolytics, anticoagulants, or antiplatelets',
+    'Emergent cardiothoracic / vascular surgery consult',
+    'IV morphine 2–4 mg for pain (reduces sympathetic surge)'
+  ],
+  'Cardiac Tamponade': [
+    'IV fluid bolus 250–500 mL — maintain preload (temporary measure only)',
+    'Avoid diuretics, vasodilators, positive-pressure ventilation',
+    'Emergent pericardiocentesis — ultrasound-guided preferred',
+    'If traumatic: emergent pericardial window in OR'
+  ],
+  'Tension Pneumothorax': [
+    'IMMEDIATE needle decompression — 2nd ICS midclavicular line (14G angiocath)',
+    'Do NOT wait for CXR — clinical diagnosis',
+    'Follow immediately with chest tube (28–32 Fr, 4th–5th ICS anterior axillary line)',
+    'High-flow O₂ during procedure'
+  ],
+  'Esophageal Rupture (Boerhaave)': [
+    'NPO immediately — nothing by mouth',
+    'Broad-spectrum IV antibiotics — piperacillin-tazobactam 3.375 g IV q6h (or meropenem if severe)',
+    'Aggressive IV fluid resuscitation',
+    'IV PPI (pantoprazole 40 mg IV)',
+    'Emergent thoracic surgery consult — surgical repair within 24 h critical',
+    'Do NOT place NG tube blindly until imaging confirms'
+  ],
+  'Pericarditis': [
+    'NSAIDs — ibuprofen 600 mg TID with food for 1–2 weeks',
+    'Colchicine 0.5 mg BID for 3 months (reduces recurrence)',
+    'Restrict activity until symptom-free and CRP normalized'
+  ]
+};
+
+// ── Generate narrative text ─────────────────────────────────
+function generateNarrative() {
+  const comp = currentComplaint();
+  const answers = state.answers || {};
+
+  const hasAnyInput =
+    Object.values(answers).some(v => Array.isArray(v) ? v.length > 0 : v) ||
+    state.unstable ||
+    Object.values(state.wellsAnswers).some(Boolean) ||
+    Object.values(state.heartAnswers).some(v => v != null);
+
+  if (!hasAnyInput) {
+    return `<div class="narr-empty">Begin entering clinical information above to generate a personalized Assessment &amp; Plan.</div>`;
+  }
+
+  // Score all conditions
+  const results = comp.conditions.map(scoreCondition);
+
+  // Label thresholds
+  function getLabel(r) {
+    const isCritical = r.tier === 'must_not_miss' || r.tier === 'urgent';
+    if (r.score >= 8)                   return 'concerning_for';
+    if (r.score >= 4)                   return 'consider';
+    if (r.score >= 1 || isCritical)     return 'rule_out';
+    return 'less_likely';
+  }
+
+  const LABEL_TEXT  = { concerning_for: 'Concerning for', consider: 'Consider', rule_out: 'Rule out', less_likely: 'Less likely' };
+  const LABEL_COLOR = { concerning_for: 'var(--danger)', consider: 'var(--warn)', rule_out: 'var(--accent)', less_likely: 'var(--muted)' };
+  const LABEL_BG    = { concerning_for: 'rgba(253,107,119,0.15)', consider: 'rgba(255,189,62,0.15)', rule_out: 'rgba(66,192,255,0.1)', less_likely: 'rgba(120,146,176,0.08)' };
+
+  // Sort: tier (must_not_miss > urgent > non_emergent) then score descending
+  const TIER_ORDER = { must_not_miss: 0, urgent: 1, non_emergent: 2 };
+  const sorted = [...results].sort((a, b) => {
+    const td = (TIER_ORDER[a.tier] ?? 3) - (TIER_ORDER[b.tier] ?? 3);
+    return td !== 0 ? td : b.score - a.score;
+  });
+
+  // ── Stabilization block ──────────────────────────────────
+  let stabilizationHTML = '';
+  if (state.unstable) {
+    const steps = [
+      'Airway — ensure patent; prepare for early intubation if respiratory failure',
+      'Large-bore IV access × 2; aggressive fluid resuscitation if hypotensive (250–500 mL boluses)',
+      'Supplemental O₂ — target SpO₂ ≥ 94%; consider high-flow or non-rebreather mask',
+      'Continuous monitoring: pulse oximetry, telemetry, serial BP (both arms if dissection suspected)',
+      'Move patient to resuscitation bay; physician bedside immediately',
+      'Blood type & screen, CBC, BMP, lactate, coags — stat labs'
+    ];
+    const exam = answers.exam_findings || [];
+    const stab = answers.stability   || [];
+    if (exam.includes('tracheal deviation') || exam.includes('absent breath sounds one side')) {
+      steps.push('⚡ Tension PTX suspected — needle decompression NOW (2nd ICS midclavicular line), do NOT wait for imaging');
+    }
+    if (exam.includes('muffled heart sounds') && stab.includes('hypotension')) {
+      steps.push('⚡ Tamponade suspected — emergent POCUS + pericardiocentesis at bedside');
+    }
+    if (exam.includes('unequal pulses')) {
+      steps.push('⚡ Aortic Dissection suspected — IV beta-blocker immediately, DO NOT anticoagulate');
+    }
+    stabilizationHTML = `
+      <div class="narr-stabilize">
+        <div class="narr-stabilize-title">⚡ Immediate Stabilization Required</div>
+        <ul class="narr-list">${steps.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>`;
+  }
+
+  // ── Per-diagnosis cards ──────────────────────────────────
+  const dxHTML = sorted.map(r => {
+    const label = getLabel(r);
+
+    // Supporting (matched features)
+    const supporting = [];
+    Object.entries(r.match_features || {}).forEach(([field, expected]) => {
+      (answers[field] || []).filter(v => expected.includes(v)).forEach(v => supporting.push(v));
+    });
+
+    // Red flags present
+    const allFlags = [
+      ...(answers.stability || []),
+      ...(answers.exam_findings || []),
+      ...(answers.associated_symptoms || [])
+    ];
+    const redFlagsPresent = (r.red_flag_boost || []).filter(f => allFlags.includes(f));
+
+    // Against (exclude_if features that are present)
+    const against = (r.exclude_if || []).filter(f => allFlags.includes(f));
+
+    // Missing hallmark features (only when a field was answered but lacks the key feature)
+    const missingHallmarks = [];
+    Object.entries(r.match_features || {}).forEach(([field, expected]) => {
+      const actual = answers[field] || [];
+      if (actual.length > 0 && !actual.some(v => expected.includes(v)) && missingHallmarks.length < 2) {
+        missingHallmarks.push(`no ${expected[0]}`);
+      }
+    });
+
+    // Clinical summary row
+    let clinicalHTML = '';
+    if (supporting.length || redFlagsPresent.length || against.length || missingHallmarks.length) {
+      const forItems  = [...supporting, ...redFlagsPresent.map(f => f + ' ⚠')];
+      const agstItems = [...against.map(f => `${f} present (against)`), ...missingHallmarks];
+      clinicalHTML = `<div class="narr-clinical-summary">
+        ${forItems.length  ? `<span class="narr-for">▲ Supporting: ${forItems.join(', ')}</span>` : ''}
+        ${agstItems.length ? `<span class="narr-against">▼ Against: ${agstItems.join(', ')}</span>` : ''}
+      </div>`;
+    } else if (label === 'rule_out' || label === 'less_likely') {
+      clinicalHTML = `<div class="narr-clinical-summary"><span class="narr-against">▼ No specific features present — considered given tier / clinical context</span></div>`;
+    }
+
+    // Score context (Wells / HEART)
+    let scoreHTML = '';
+    if (r.label === 'Pulmonary Embolism' && Object.values(state.wellsAnswers).some(Boolean)) {
+      const ws = calcWells(); const wr = wellsRisk(ws);
+      scoreHTML = `<div class="narr-score-ctx"><strong>Wells Score: ${ws} pts</strong> → <span class="badge ${wr.tier}" style="font-size:0.7rem;">${wr.label} Risk</span> — ${wr.pct}. Action: ${wr.action}</div>`;
+    }
+    if (['STEMI','Unstable Angina / NSTEMI','NST ACS — Troponin Decision Point'].includes(r.label) && Object.values(state.heartAnswers).some(v => v != null)) {
+      const hs = calcHEART(); const hr = heartRisk(hs);
+      scoreHTML = `<div class="narr-score-ctx"><strong>HEART Score: ${hs}/10 pts</strong> → <span class="badge ${hr.tier}" style="font-size:0.7rem;">${hr.label} Risk</span> — ${hr.pct}. Action: ${hr.action}</div>`;
+    }
+
+    // Empiric treatment (only for concerning_for or consider)
+    let empiricHTML = '';
+    const empiric = EMPIRIC_TX[r.label];
+    if (empiric && (label === 'concerning_for' || label === 'consider')) {
+      empiricHTML = `<div class="narr-empiric">
+        <strong style="color:var(--warn);font-size:0.77rem;">EMPIRIC TREATMENT — initiate before confirmatory test results:</strong>
+        <ul class="narr-list narr-list-compact">${empiric.map(e => `<li>${e}</li>`).join('')}</ul>
+      </div>`;
+    }
+
+    // Workup
+    let testsHTML = '';
+    if (label !== 'less_likely') {
+      testsHTML = `<div class="narr-tests"><strong style="color:var(--accent);font-size:0.76rem;">WORKUP:</strong> ${r.workup.join(' · ')}</div>`;
+    }
+
+    return `
+      <div class="narr-dx-item ${label === 'less_likely' ? 'narr-faded' : ''}">
+        <div class="narr-dx-header">
+          <span class="narr-label-tag" style="background:${LABEL_BG[label]};color:${LABEL_COLOR[label]};border-color:${LABEL_COLOR[label]};">${LABEL_TEXT[label]}</span>
+          <span class="narr-dx-name">${r.label}</span>
+          <span class="badge ${r.danger}" style="margin-left:auto;flex-shrink:0;">${r.danger.toUpperCase()}</span>
+        </div>
+        ${clinicalHTML}
+        ${scoreHTML}
+        ${empiricHTML}
+        ${testsHTML}
+      </div>`;
+  }).join('');
+
+  // ── Overall impression ───────────────────────────────────
+  const topDx      = sorted.filter(r => getLabel(r) === 'concerning_for');
+  const considerDx = sorted.filter(r => getLabel(r) === 'consider');
+  const ruleOutDx  = sorted.filter(r => getLabel(r) === 'rule_out');
+
+  let impressionText = '';
+  if (topDx.length) {
+    impressionText = `This patient's presentation is most <strong>concerning for ${topDx.map(r => r.label).join(' and/or ')}</strong>.`;
+    if (considerDx.length) impressionText += ` <strong>${considerDx.map(r => r.label).join(', ')}</strong> ${considerDx.length > 1 ? 'are' : 'is'} also in the differential and must be actively considered.`;
+    if (ruleOutDx.length)  impressionText += ` The following will be worked up to rule out: ${ruleOutDx.map(r => r.label).join(', ')}.`;
+  } else if (considerDx.length) {
+    impressionText = `No single diagnosis strongly predominates. Leading considerations are <strong>${considerDx.map(r => r.label).join(', ')}</strong>.`;
+    if (ruleOutDx.length) impressionText += ` Additionally working up to exclude: ${ruleOutDx.map(r => r.label).join(', ')}.`;
+  } else {
+    impressionText = `The clinical picture is incomplete. Continue gathering history, vitals, and exam findings. All emergent diagnoses in the Must-Not-Miss tier should be considered until excluded.`;
+  }
+
+  // Disposition
+  let disposition = '';
+  const hasCriticalMatch = topDx.some(r => r.tier === 'must_not_miss' || r.tier === 'urgent') ||
+                           considerDx.some(r => r.tier === 'must_not_miss' || r.tier === 'urgent');
+  if (state.unstable) {
+    disposition = 'Resuscitation bay / ICU — emergent workup and intervention.';
+  } else if (hasCriticalMatch) {
+    disposition = 'Admit to monitored bed or telemetry. Urgent workup to rule out life-threatening diagnoses before any disposition decision.';
+  } else if (considerDx.length || ruleOutDx.length) {
+    disposition = 'Consider admission for observation and serial workup (serial troponins, repeat exam) pending results. Reassess after initial workup returns.';
+  } else {
+    disposition = 'Further history and clinical examination needed to guide disposition.';
+  }
+
+  const alwaysOrder = comp.id === 'chest_pain'
+    ? 'ECG (immediate, repeat in 15–30 min if initial negative), CXR, Troponin × 2 (0 h and 3 h), IV access × 2, BMP, CBC'
+    : 'CBC, BMP, LFTs, Lipase, UA, Upright CXR, CT abdomen/pelvis with contrast';
+
+  return `
+    <div class="narr-status ${state.unstable ? 'narr-status-unstable' : 'narr-status-stable'}">
+      <span class="narr-status-icon">${state.unstable ? '🔴' : '🟢'}</span>
+      <span class="narr-status-text">Patient is <strong>${state.unstable ? 'UNSTABLE' : 'STABLE'}</strong></span>
+    </div>
+
+    ${stabilizationHTML}
+
+    <div class="narr-section-title">Differential Diagnosis — Prioritized by Acuity &amp; Presentation</div>
+    ${dxHTML}
+
+    <div class="narr-overall">
+      <div class="narr-section-title" style="margin-top:0;">Overall Impression &amp; Plan</div>
+      <p class="narr-impression">${impressionText}</p>
+      <div class="narr-plan-grid">
+        <div class="narr-plan-col">
+          <div class="narr-plan-label">Always Order First</div>
+          <div class="narr-plan-items">${alwaysOrder}</div>
+        </div>
+        <div class="narr-plan-col">
+          <div class="narr-plan-label">Disposition</div>
+          <div class="narr-plan-items">${disposition}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Render: Narrative ───────────────────────────────────────
+function renderNarrative() {
+  const el = document.getElementById('narrative-content');
+  if (el) el.innerHTML = generateNarrative();
+}
+
 // ── Render: All ─────────────────────────────────────────────
 function renderAll() {
   renderComplaints();
@@ -1709,12 +2165,14 @@ function renderAll() {
   renderTree();
   renderResults();
   renderScoringTools();
+  renderNarrative();
   document.querySelectorAll('input[name="unstable"]').forEach(el => {
     el.checked = (el.value === "yes") === state.unstable;
     el.onchange = () => {
       state.unstable = el.value === "yes";
       renderTree();
       renderResults();
+      renderNarrative();
     };
   });
 }
@@ -1739,6 +2197,7 @@ function toggleAnswer(field, option, type) {
   }
   renderQuestions();
   renderResults();
+  renderNarrative();
 }
 
 renderAll();
