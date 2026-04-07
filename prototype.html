@@ -1089,6 +1089,15 @@ const DATA = {
             associated_symptoms: ["diaphoresis", "dyspnea / SOB", "nausea / vomiting"],
             risk_factors: ["CAD / prior MI", "HTN", "smoking", "diabetes"]
           },
+          feature_weights: {
+            "pressure / crushing": 4, "left arm": 4, "jaw": 4, "diaphoresis": 4,
+            "CAD / prior MI": 3, "substernal": 1, "left chest": 1, "sudden": 1,
+            "dyspnea / SOB": 1, "nausea / vomiting": 1, "HTN": 1, "smoking": 1, "diabetes": 1
+          },
+          absent_penalties: [
+            { field: "pain_quality", key_values: ["pressure / crushing"], penalty: 2 }
+          ],
+          weighted_red_flags: { "hypotension": 2, "tachycardia (>100)": 2 },
           red_flag_boost: ["hypotension", "tachycardia (>100)"],
           exclude_if: [],
           workup: ["ECG within 10 min (look for STE)", "Aspirin 325 mg immediately", "Troponin", "Activate cath lab if STE confirmed"]
@@ -1108,6 +1117,16 @@ const DATA = {
             associated_symptoms: ["diaphoresis", "dyspnea / SOB", "nausea / vomiting"],
             risk_factors: ["CAD / prior MI", "HTN", "smoking", "diabetes"]
           },
+          feature_weights: {
+            "pressure / crushing": 4, "left arm": 4, "jaw": 4, "diaphoresis": 4,
+            "aching / dull": 2, "CAD / prior MI": 3, "substernal": 1, "left chest": 1,
+            "sudden": 1, "gradual": 1, "dyspnea / SOB": 1, "nausea / vomiting": 1,
+            "HTN": 1, "smoking": 1, "diabetes": 1
+          },
+          absent_penalties: [
+            { field: "pain_quality", key_values: ["pressure / crushing", "aching / dull"], penalty: 2 }
+          ],
+          weighted_red_flags: { "hypotension": 2, "tachycardia (>100)": 2 },
           red_flag_boost: ["hypotension", "tachycardia (>100)"],
           exclude_if: [],
           workup: ["ECG", "Serial troponin (0h + 3h)", "Aspirin", "Heparin if NSTEMI confirmed", "Admit + telemetry"]
@@ -1124,9 +1143,19 @@ const DATA = {
             pain_quality: ["tearing / ripping"],
             location: ["substernal", "back"],
             radiation: ["back", "shoulders"],
+            exam_findings: ["unequal pulses", "neurologic deficit"],
             risk_factors: ["HTN", "connective tissue disorder / Marfan"]
           },
-          red_flag_boost: ["unequal pulses", "neurologic deficit", "hypotension"],
+          feature_weights: {
+            "tearing / ripping": 6, "connective tissue disorder / Marfan": 5,
+            "unequal pulses": 7, "neurologic deficit": 5,
+            "back": 4, "shoulders": 3, "HTN": 2, "sudden": 1, "substernal": 1
+          },
+          absent_penalties: [
+            { field: "pain_quality", key_values: ["tearing / ripping"], penalty: 5 }
+          ],
+          weighted_red_flags: { "hypotension": 1 },
+          red_flag_boost: ["hypotension"],
           exclude_if: [],
           workup: ["BP both arms (>20 mmHg difference)", "CXR (widened mediastinum)", "CTA chest — diagnostic", "Do NOT give thrombolytics"]
         },
@@ -1142,7 +1171,13 @@ const DATA = {
             associated_symptoms: ["dyspnea / SOB", "syncope"],
             exam_findings: ["JVD", "muffled heart sounds"]
           },
-          red_flag_boost: ["hypotension", "JVD"],
+          feature_weights: {
+            "muffled heart sounds": 6, "JVD": 5, "syncope": 3, "dyspnea / SOB": 1,
+            "gradual": 1, "sudden": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: { "hypotension": 3 },
+          red_flag_boost: ["hypotension"],
           exclude_if: [],
           workup: ["POCUS (pericardial effusion + RA/RV collapse)", "ECG (low voltage, electrical alternans)", "Pericardiocentesis if hemodynamically unstable"]
         },
@@ -1159,6 +1194,12 @@ const DATA = {
             location: ["substernal"],
             associated_symptoms: ["dyspnea / SOB", "diaphoresis"]
           },
+          feature_weights: {
+            "pressure / crushing": 3, "substernal": 2, "sudden": 2, "aching / dull": 2,
+            "dyspnea / SOB": 1, "diaphoresis": 2
+          },
+          absent_penalties: [],
+          weighted_red_flags: { "hypotension": 2 },
           red_flag_boost: ["hypotension"],
           exclude_if: [],
           workup: ["ECG", "Troponin (mildly elevated)", "Echo (apical ballooning)", "Coronary angiography (no obstructive CAD)"]
@@ -1179,6 +1220,13 @@ const DATA = {
             associated_symptoms: ["dyspnea / SOB", "hemoptysis", "syncope"],
             risk_factors: ["recent surgery / immobility", "DVT / PE history"]
           },
+          feature_weights: {
+            "DVT / PE history": 5, "hemoptysis": 5, "recent surgery / immobility": 4,
+            "pleuritic (worse with breath)": 4, "syncope": 2, "sudden": 2,
+            "dyspnea / SOB": 2, "sharp stabbing": 1, "left chest": 1, "right chest": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: { "hypoxia (O2<94%)": 4, "tachycardia (>100)": 3 },
           red_flag_boost: ["hypoxia (O2<94%)", "tachycardia (>100)"],
           exclude_if: [],
           workup: ["Wells Score (see below)", "D-dimer if low/moderate risk", "CTPA if high risk or positive D-dimer", "Anticoagulation — initiate promptly"]
@@ -1198,7 +1246,14 @@ const DATA = {
             exam_findings: ["tracheal deviation", "absent breath sounds one side"],
             risk_factors: ["trauma"]
           },
-          red_flag_boost: ["hypotension", "hypoxia (O2<94%)", "tracheal deviation"],
+          feature_weights: {
+            "tracheal deviation": 7, "absent breath sounds one side": 7, "trauma": 4,
+            "pleuritic (worse with breath)": 2, "sudden": 2, "dyspnea / SOB": 1,
+            "syncope": 1, "left chest": 1, "right chest": 1, "sharp stabbing": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: { "hypotension": 2, "hypoxia (O2<94%)": 3 },
+          red_flag_boost: ["hypotension", "hypoxia (O2<94%)"],
           exclude_if: [],
           workup: ["Clinical diagnosis — act immediately", "Needle decompression (2nd ICS MCL) if unstable", "CXR if stable", "Chest tube"]
         },
@@ -1219,7 +1274,16 @@ const DATA = {
             exam_findings: ["subcutaneous emphysema"],
             risk_factors: ["recent forceful vomiting"]
           },
-          red_flag_boost: ["subcutaneous emphysema", "hypotension"],
+          feature_weights: {
+            "recent forceful vomiting": 7, "subcutaneous emphysema": 7, "dysphagia": 5,
+            "nausea / vomiting": 2, "tearing / ripping": 2, "sharp stabbing": 1,
+            "sudden": 2, "substernal": 1, "back": 2, "epigastric": 1
+          },
+          absent_penalties: [
+            { field: "risk_factors", key_values: ["recent forceful vomiting"], penalty: 6 }
+          ],
+          weighted_red_flags: { "hypotension": 2 },
+          red_flag_boost: ["hypotension"],
           exclude_if: [],
           workup: ["CXR (mediastinal air, left pleural effusion)", "CT chest with oral contrast", "Esophagogram (water-soluble contrast)", "Emergent surgical consult"]
         },
@@ -1236,6 +1300,14 @@ const DATA = {
             location: ["substernal", "epigastric"],
             associated_symptoms: ["dysphagia", "nausea / vomiting"]
           },
+          feature_weights: {
+            "dysphagia": 6, "sudden": 3, "substernal": 2, "epigastric": 2,
+            "sharp stabbing": 2, "pressure / crushing": 2, "nausea / vomiting": 1
+          },
+          absent_penalties: [
+            { field: "associated_symptoms", key_values: ["dysphagia"], penalty: 4 }
+          ],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["History (food type, timing)", "CXR", "Upper endoscopy — diagnostic + therapeutic"]
@@ -1255,6 +1327,14 @@ const DATA = {
             associated_symptoms: ["dyspnea / SOB", "diaphoresis"],
             risk_factors: ["CAD / prior MI", "HTN", "smoking", "diabetes"]
           },
+          feature_weights: {
+            "pressure / crushing": 4, "diaphoresis": 3, "CAD / prior MI": 3,
+            "substernal": 2, "dyspnea / SOB": 1, "HTN": 1, "smoking": 1, "diabetes": 1
+          },
+          absent_penalties: [
+            { field: "pain_quality", key_values: ["pressure / crushing", "aching / dull"], penalty: 2 }
+          ],
+          weighted_red_flags: { "hypotension": 2 },
           red_flag_boost: ["hypotension"],
           exclude_if: [],
           workup: ["ECG (repeat 15–30 min if initial negative)", "Troponin at 0h and 3h", "HEART Score (see below)", "Heparin if NSTEMI confirmed", "Cardiology consult"]
@@ -1275,6 +1355,12 @@ const DATA = {
             associated_symptoms: ["fever"],
             risk_factors: ["viral illness"]
           },
+          feature_weights: {
+            "fever": 4, "viral illness": 4, "sharp stabbing": 2,
+            "substernal": 1, "gradual": 1, "sudden": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["ECG (diffuse STE, PR depression)", "Echo (rule out effusion/tamponade)", "CBC, CRP, ESR", "NSAIDs + colchicine"]
@@ -1292,6 +1378,12 @@ const DATA = {
             location: ["substernal", "epigastric"],
             associated_symptoms: ["nausea / vomiting"]
           },
+          feature_weights: {
+            "burning": 5, "intermittent": 3, "epigastric": 3, "gradual": 2,
+            "substernal": 1, "nausea / vomiting": 1, "pressure / crushing": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["GI cocktail or antacid trial", "Upper endoscopy if recurrent", "Manometry if spasm suspected"]
@@ -1309,6 +1401,12 @@ const DATA = {
             location: ["left chest", "right chest"],
             associated_symptoms: ["fever", "cough", "dyspnea / SOB"]
           },
+          feature_weights: {
+            "fever": 5, "cough": 5, "pleuritic (worse with breath)": 3, "gradual": 2,
+            "dyspnea / SOB": 2, "sharp stabbing": 1, "left chest": 1, "right chest": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["CXR (consolidation/effusion)", "CBC", "Sputum culture + sensitivities", "Antibiotics if confirmed"]
@@ -1327,6 +1425,12 @@ const DATA = {
             exam_findings: ["JVD"],
             risk_factors: ["CAD / prior MI", "HTN"]
           },
+          feature_weights: {
+            "JVD": 5, "gradual": 3, "dyspnea / SOB": 3, "palpitations": 2,
+            "CAD / prior MI": 2, "HTN": 2, "substernal": 1, "left chest": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["CXR", "BNP / NT-proBNP", "Echo (EF assessment)", "Diuresis if volume overloaded"]
@@ -1346,6 +1450,12 @@ const DATA = {
             location: ["left chest", "right chest"],
             risk_factors: ["trauma"]
           },
+          feature_weights: {
+            "trauma": 4, "sharp stabbing": 2, "aching / dull": 2,
+            "left chest": 1, "right chest": 1, "gradual": 1, "intermittent": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["Physical exam (palpation reproduces pain)", "CXR if rib fracture suspected", "NSAIDs for pain management"]
@@ -1362,6 +1472,11 @@ const DATA = {
             pain_quality: ["sharp stabbing", "burning"],
             location: ["left chest", "right chest"]
           },
+          feature_weights: {
+            "burning": 4, "gradual": 2, "sharp stabbing": 1, "left chest": 1, "right chest": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["Skin exam (dermatomal vesicles)", "Antivirals within 72h of rash onset", "Gabapentin for postherpetic neuralgia"]
@@ -1378,6 +1493,12 @@ const DATA = {
             pain_quality: ["sharp stabbing", "aching / dull"],
             location: ["left chest", "right chest", "back"]
           },
+          feature_weights: {
+            "sharp stabbing": 2, "aching / dull": 2, "gradual": 1, "intermittent": 1,
+            "left chest": 1, "right chest": 1, "back": 1
+          },
+          absent_penalties: [],
+          weighted_red_flags: {},
           red_flag_boost: [],
           exclude_if: [],
           workup: ["Neurologic exam", "MRI thoracic spine if suspected", "Pain management + physio"]
@@ -1564,19 +1685,34 @@ function ensureAnswers() {
 // ── Scoring ─────────────────────────────────────────────────
 function scoreCondition(condition) {
   let score = 0;
+  let specificScore = 0;  // Sum of weights >= 4 (high-specificity features)
   let reasons = [];
   const answers = state.answers || {};
+  const DEFAULT_WEIGHT = 2;
+  const featureWeights = condition.feature_weights || {};
 
+  // Feature matching — use feature_weights for weight, default 2
   Object.entries(condition.match_features || {}).forEach(([field, expected]) => {
     const actual = answers[field] || [];
     const overlap = actual.filter(v => expected.includes(v));
-    if (overlap.length) {
-      score += overlap.length * 2;
-      reasons.push(`${field} matched: ${overlap.join(", ")}`);
+    overlap.forEach(v => {
+      const w = featureWeights[v] !== undefined ? featureWeights[v] : DEFAULT_WEIGHT;
+      score += w;
+      if (w >= 4) specificScore += w;
+      reasons.push(`+${w}: ${v}`);
+    });
+  });
+
+  // Absent penalties — penalize if field answered without key feature
+  (condition.absent_penalties || []).forEach(({ field, key_values, penalty }) => {
+    const actual = answers[field] || [];
+    if (actual.length > 0 && !actual.some(v => key_values.includes(v))) {
+      score -= penalty;
+      reasons.push(`-${penalty}: absence of "${key_values[0]}" despite ${field} being answered`);
     }
   });
 
-  // Red flags: check stability, exam_findings, associated_symptoms, and legacy red_flags
+  // Red flags — check stability, exam_findings, associated_symptoms, red_flags
   const allFlags = [
     ...(answers.stability || []),
     ...(answers.exam_findings || []),
@@ -1584,24 +1720,35 @@ function scoreCondition(condition) {
     ...(answers.red_flags || [])
   ];
 
-  (condition.red_flag_boost || []).forEach(flag => {
-    if (allFlags.includes(flag)) {
-      score += 3;
-      reasons.push(`red flag boost: ${flag}`);
-    }
-  });
+  const redFlagWeights = condition.weighted_red_flags || {};
+  const hasWeightedFlags = Object.keys(redFlagWeights).length > 0;
 
+  if (hasWeightedFlags) {
+    Object.entries(redFlagWeights).forEach(([flag, w]) => {
+      if (allFlags.includes(flag)) {
+        score += w;
+        if (w >= 4) specificScore += w;
+        reasons.push(`+${w}: ${flag}`);
+      }
+    });
+  } else {
+    (condition.red_flag_boost || []).forEach(flag => {
+      if (allFlags.includes(flag)) {
+        score += 3;
+        reasons.push(`+3: ${flag} (red flag)`);
+      }
+    });
+  }
+
+  // Exclude penalties
   (condition.exclude_if || []).forEach(ex => {
     if (allFlags.includes(ex)) {
       score -= 3;
-      reasons.push(`penalty: exclusion feature ${ex}`);
+      reasons.push(`-3: exclusion feature ${ex}`);
     }
   });
 
-  if (state.unstable && condition.danger === "high") {
-    score += 4;
-    reasons.push("unstable patient boosted dangerous condition");
-  }
+  // NOTE: Removed blanket instability boost — hypotension/tachycardia are now weighted per-condition
 
   // Wells Score for PE
   if (state.selectedComplaint === 'chest_pain' && condition.label === 'Pulmonary Embolism') {
@@ -1611,24 +1758,27 @@ function scoreCondition(condition) {
       const wr = wellsRisk(ws);
       const boost = wr.tier === 'high' ? 12 : wr.tier === 'medium' ? 6 : -4;
       score += boost;
-      reasons.push(`Wells Score ${wr.label} Risk (${ws} pts) → ${boost >= 0 ? '+' : ''}${boost} adjustment`);
+      if (boost > 0) specificScore += boost;
+      reasons.push(`Wells Score ${wr.label} Risk (${ws} pts) → ${boost >= 0 ? '+' : ''}${boost}`);
     }
   }
 
-  // HEART Score for ACS conditions
+  // HEART Score for ACS
   if (state.selectedComplaint === 'chest_pain' &&
-      (condition.label === 'STEMI' || condition.label === 'Unstable Angina / NSTEMI' || condition.label.includes('NST ACS') || condition.label === 'Myocardial Infarction')) {
+      (condition.label === 'STEMI' || condition.label === 'Unstable Angina / NSTEMI' ||
+       condition.label.includes('NST ACS') || condition.label === 'Myocardial Infarction')) {
     const hasAny = Object.values(state.heartAnswers).some(v => v != null);
     if (hasAny) {
       const hs = calcHEART();
       const hr = heartRisk(hs);
       const boost = hr.tier === 'high' ? 12 : hr.tier === 'medium' ? 6 : -4;
       score += boost;
-      reasons.push(`HEART Score ${hr.label} Risk (${hs} pts) → ${boost >= 0 ? '+' : ''}${boost} adjustment`);
+      if (boost > 0) specificScore += boost;
+      reasons.push(`HEART Score ${hr.label} Risk (${hs} pts) → ${boost >= 0 ? '+' : ''}${boost}`);
     }
   }
 
-  return { ...condition, score, reasons };
+  return { ...condition, score, specificScore, reasons };
 }
 
 // ── Render: Complaints ──────────────────────────────────────
@@ -1958,16 +2108,43 @@ function generateNarrative() {
 
   // Label thresholds
   function getLabel(r) {
-    const isCritical = r.tier === 'must_not_miss' || r.tier === 'urgent';
-    if (r.score >= 8)                   return 'concerning_for';
-    if (r.score >= 4)                   return 'consider';
-    if (r.score >= 1 || isCritical)     return 'rule_out';
-    return 'less_likely';
+    const isMorbid = r.tier === 'must_not_miss' || r.tier === 'urgent';
+    const isLowAcuity = r.danger === 'low';
+    const isMedium = r.danger === 'medium' && !isMorbid;
+
+    // Low-acuity (zoster, costochondritis, radiculopathy): only show when stable + very consistent
+    if (isLowAcuity) {
+      if (state.unstable) return 'hidden';
+      return (r.score >= 8 && r.specificScore >= 4) ? 'consider' : 'hidden';
+    }
+
+    // "Concerning for": high absolute score + meaningful specific features
+    if (r.score >= 10 && r.specificScore >= 4) return 'concerning_for';
+
+    // Morbid conditions
+    if (isMorbid) {
+      // "Consider": multiple specific features or high total
+      if ((r.score >= 4 && r.specificScore >= 4) || r.score >= 7) return 'consider';
+      // "Rule out": any positive evidence, or patient is unstable (keep all morbid on radar)
+      // Hidden only if absent penalties drove score negative
+      if (r.score > 0 || (state.unstable && r.score >= 0)) return 'rule_out';
+      return 'hidden';
+    }
+
+    // Medium-acuity non-morbid (pericarditis, pneumonia, HF): only show when well-supported
+    if (isMedium) {
+      if (state.unstable) return 'hidden'; // Don't distract from life threats when unstable
+      if (r.score >= 10 && r.specificScore >= 4) return 'concerning_for';
+      if (r.score >= 6) return 'consider';
+      return 'hidden';
+    }
+
+    return 'hidden';
   }
 
-  const LABEL_TEXT  = { concerning_for: 'Concerning for', consider: 'Consider', rule_out: 'Rule out', less_likely: 'Less likely' };
-  const LABEL_COLOR = { concerning_for: 'var(--danger)', consider: 'var(--warn)', rule_out: 'var(--accent)', less_likely: 'var(--muted)' };
-  const LABEL_BG    = { concerning_for: 'rgba(253,107,119,0.15)', consider: 'rgba(255,189,62,0.15)', rule_out: 'rgba(66,192,255,0.1)', less_likely: 'rgba(120,146,176,0.08)' };
+  const LABEL_TEXT  = { concerning_for: 'Concerning for', consider: 'Consider', rule_out: 'Rule out' };
+  const LABEL_COLOR = { concerning_for: 'var(--danger)', consider: 'var(--warn)', rule_out: 'var(--accent)' };
+  const LABEL_BG    = { concerning_for: 'rgba(253,107,119,0.15)', consider: 'rgba(255,189,62,0.15)', rule_out: 'rgba(66,192,255,0.1)' };
 
   // Sort: tier (must_not_miss > urgent > non_emergent) then score descending
   const TIER_ORDER = { must_not_miss: 0, urgent: 1, non_emergent: 2 };
@@ -2006,7 +2183,8 @@ function generateNarrative() {
   }
 
   // ── Per-diagnosis cards ──────────────────────────────────
-  const dxHTML = sorted.map(r => {
+  const visibleResults = sorted.filter(r => getLabel(r) !== 'hidden');
+  const dxHTML = visibleResults.map(r => {
     const label = getLabel(r);
 
     // Supporting (matched features)
@@ -2044,7 +2222,7 @@ function generateNarrative() {
         ${forItems.length  ? `<span class="narr-for">▲ Supporting: ${forItems.join(', ')}</span>` : ''}
         ${agstItems.length ? `<span class="narr-against">▼ Against: ${agstItems.join(', ')}</span>` : ''}
       </div>`;
-    } else if (label === 'rule_out' || label === 'less_likely') {
+    } else if (label === 'rule_out') {
       clinicalHTML = `<div class="narr-clinical-summary"><span class="narr-against">▼ No specific features present — considered given tier / clinical context</span></div>`;
     }
 
@@ -2070,13 +2248,10 @@ function generateNarrative() {
     }
 
     // Workup
-    let testsHTML = '';
-    if (label !== 'less_likely') {
-      testsHTML = `<div class="narr-tests"><strong style="color:var(--accent);font-size:0.76rem;">WORKUP:</strong> ${r.workup.join(' · ')}</div>`;
-    }
+    const testsHTML = `<div class="narr-tests"><strong style="color:var(--accent);font-size:0.76rem;">WORKUP:</strong> ${r.workup.join(' · ')}</div>`;
 
     return `
-      <div class="narr-dx-item ${label === 'less_likely' ? 'narr-faded' : ''}">
+      <div class="narr-dx-item">
         <div class="narr-dx-header">
           <span class="narr-label-tag" style="background:${LABEL_BG[label]};color:${LABEL_COLOR[label]};border-color:${LABEL_COLOR[label]};">${LABEL_TEXT[label]}</span>
           <span class="narr-dx-name">${r.label}</span>
@@ -2090,9 +2265,9 @@ function generateNarrative() {
   }).join('');
 
   // ── Overall impression ───────────────────────────────────
-  const topDx      = sorted.filter(r => getLabel(r) === 'concerning_for');
-  const considerDx = sorted.filter(r => getLabel(r) === 'consider');
-  const ruleOutDx  = sorted.filter(r => getLabel(r) === 'rule_out');
+  const topDx      = visibleResults.filter(r => getLabel(r) === 'concerning_for');
+  const considerDx = visibleResults.filter(r => getLabel(r) === 'consider');
+  const ruleOutDx  = visibleResults.filter(r => getLabel(r) === 'rule_out');
 
   let impressionText = '';
   if (topDx.length) {
