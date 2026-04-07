@@ -2126,9 +2126,9 @@ function generateNarrative() {
       // "Consider": multiple specific features or high total
       if ((r.score >= 4 && r.specificScore >= 4) || r.score >= 7) return 'consider';
       // "Rule out": any positive evidence, or patient is unstable (keep all morbid on radar)
-      // Hidden only if absent penalties drove score negative
       if (r.score > 0 || (state.unstable && r.score >= 0)) return 'rule_out';
-      return 'hidden';
+      // "Less likely": morbid but no supporting features (absent penalties drove score ≤ 0)
+      return 'less_likely';
     }
 
     // Medium-acuity non-morbid (pericarditis, pneumonia, HF): only show when well-supported
@@ -2142,9 +2142,9 @@ function generateNarrative() {
     return 'hidden';
   }
 
-  const LABEL_TEXT  = { concerning_for: 'Concerning for', consider: 'Consider', rule_out: 'Rule out' };
-  const LABEL_COLOR = { concerning_for: 'var(--danger)', consider: 'var(--warn)', rule_out: 'var(--accent)' };
-  const LABEL_BG    = { concerning_for: 'rgba(253,107,119,0.15)', consider: 'rgba(255,189,62,0.15)', rule_out: 'rgba(66,192,255,0.1)' };
+  const LABEL_TEXT  = { concerning_for: 'Concerning for', consider: 'Consider', rule_out: 'Rule out', less_likely: 'Less likely' };
+  const LABEL_COLOR = { concerning_for: 'var(--danger)', consider: 'var(--warn)', rule_out: 'var(--accent)', less_likely: 'var(--muted, #888)' };
+  const LABEL_BG    = { concerning_for: 'rgba(253,107,119,0.15)', consider: 'rgba(255,189,62,0.15)', rule_out: 'rgba(66,192,255,0.1)', less_likely: 'rgba(136,136,136,0.08)' };
 
   // Sort: tier (must_not_miss > urgent > non_emergent) then score descending
   const TIER_ORDER = { must_not_miss: 0, urgent: 1, non_emergent: 2 };
